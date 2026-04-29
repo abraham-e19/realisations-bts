@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veille Technologique — Abraham Emmanuel</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .methode-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .methode-step {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+    }
+    .methode-step .step-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .methode-step p {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .meta-tag {
+      background: rgba(79, 195, 247, 0.07);
+      border: 1px solid rgba(79, 195, 247, 0.18);
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+    }
+    .article-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      margin: 1rem 0;
+    }
+    .article-card .article-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+    .article-card .article-source {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+    .article-card .article-body {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .sous-themes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.75rem 0;
+    }
+    .sous-themes li {
+      list-style: none;
+      background: rgba(79, 195, 247, 0.08);
+      border: 1px solid rgba(79, 195, 247, 0.2);
+      color: var(--text-primary);
+      font-size: 0.78rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+    }
+    .lien-themes {
+      background: rgba(79, 195, 247, 0.05);
+      border: 1px solid rgba(79, 195, 247, 0.2);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .lien-themes strong {
+      color: var(--accent);
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-brand">Abraham Emmanuel</a>
+    <a href="index.html" class="nav-back">← Retour aux réalisations</a>
+  </nav>
+
+  <main class="page-container">
+
+    <div class="page-header">
+      <div class="page-badge">BTS SIO SISR</div>
+      <h1>Veille Technologique</h1>
+      <div class="page-meta">
+        <span>📡 Cybersécurité</span>
+        <span>🔍 Seek / Sense / Share</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1 : Méthode -->
+    <div class="content-section">
+      <h2>Ma méthode de veille</h2>
+
+      <div class="methode-grid">
+        <div class="methode-step">
+          <div class="step-label">🔍 Seek</div>
+          <p>Je cherche sur Google Alerts, The Hacker News, ANSSI, CERT-FR</p>
+        </div>
+        <div class="methode-step">
+          <div class="step-label">🧠 Sense</div>
+          <p>Je lis et je résume les articles qui m'apportent quelque chose de nouveau</p>
+        </div>
+        <div class="methode-step">
+          <div class="step-label">📤 Share</div>
+          <p>Je publie les résumés dans mon portfolio</p>
+        </div>
+      </div>
+
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.75rem;">
+        Fréquence : 1 à 2 fois par semaine
+      </p>
+    </div>
+
+    <!-- SECTION 2 : Thème 1 -->
+    <div class="content-section">
+      <h2>Thème 1 — Les attaques de phishing et leurs évolutions</h2>
+
+      <div class="meta-row">
+        <span class="meta-tag">📅 Suivi depuis la 1ère année (2024–2025)</span>
+      </div>
+
+      <p>Sous-thèmes suivis :</p>
+      <ul class="sous-themes">
+        <li>Spear phishing</li>
+        <li>Quishing (phishing par QR code)</li>
+        <li>IA générative</li>
+      </ul>
+
+      <div class="article-card">
+        <div class="article-title">"Quishing : quand le QR code devient un piège"</div>
+        <div class="article-source">Webologie.me — mars 2026 &nbsp;·&nbsp; Sources : alertes ANSSI et Police nationale</div>
+        <p class="article-body">
+          Les emails de quishing ont été multipliés par 5 entre août et novembre 2025.
+          Le quishing consiste à insérer un QR code malveillant dans un email ou un document
+          pour rediriger la victime vers une page de phishing, contournant ainsi les filtres
+          antispam classiques qui n'analysent pas les images.
+        </p>
+      </div>
+    </div>
+
+    <!-- SECTION 3 : Thème 2 -->
+    <div class="content-section">
+      <h2>Thème 2 — Le déploiement des Passkeys</h2>
+
+      <div class="meta-row">
+        <span class="meta-tag">📅 Suivi depuis la 2ème année (2025–2026)</span>
+      </div>
+
+      <div class="article-card">
+        <div class="article-title">"L'adoption des passkeys progresse rapidement"</div>
+        <div class="article-source">Le Monde Informatique — août 2024</div>
+        <p class="article-body">
+          Google, Microsoft et Amazon déploient les passkeys FIDO2 comme méthode d'authentification
+          principale. Les passkeys reposent sur de la cryptographie asymétrique : une clé privée
+          reste sur l'appareil de l'utilisateur, une clé publique est stockée côté serveur.
+          Aucun mot de passe n'est transmis ni stocké, ce qui élimine le risque de vol de credentials.
+        </p>
+      </div>
+
+      <div class="lien-themes">
+        <strong>🔗 Lien avec le Thème 1</strong>
+        Les passkeys résistent au phishing par nature : sans mot de passe à intercepter,
+        les attaques de quishing et de spear phishing perdent leur principal vecteur d'exploitation.
+        L'authentification est liée au domaine légitime, rendant toute tentative de redirection inopérante.
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Abraham Emmanuel — BTS SIO SISR &mdash; <a href="index.html">Réalisations</a></p>
+  </footer>
+
+</body>
+</html>
