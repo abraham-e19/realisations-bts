@@ -8,6 +8,134 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .screenshot {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-top: 1.25rem;
+    }
+    .screenshot-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 0.5rem;
+    }
+    .objectives-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.45rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .objectives-list li:last-child {
+      border-bottom: none;
+    }
+    .objectives-list li::before {
+      content: '›';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 0.5rem;
+      counter-reset: step-counter;
+    }
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+    .steps-list li::before {
+      content: counter(step-counter);
+      background: rgba(79, 195, 247, 0.12);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      min-width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-os-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+    .badge-linux {
+      background: rgba(255, 183, 77, 0.12);
+      color: #ffb74d;
+      border: 1px solid rgba(255, 183, 77, 0.25);
+    }
+    .badge-windows {
+      background: rgba(79, 195, 247, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(79, 195, 247, 0.2);
+    }
+    .dns-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
+    }
+    .dns-table th {
+      background: rgba(79, 195, 247, 0.1);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.65rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .dns-table td {
+      padding: 0.65rem 1rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+    .dns-table td:first-child {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .dns-table tr:last-child td {
+      border-bottom: none;
+    }
+    .dns-table tr:hover td {
+      background: rgba(79, 195, 247, 0.04);
+      color: var(--text-primary);
+    }
+  </style>
 </head>
 <body>
 
@@ -20,55 +148,169 @@
 
     <div class="page-header">
       <div class="page-badge">Formation — BTS SIO SISR</div>
-      <h1>TP DNS</h1>
+      <h1>TP DNS — ESN Novatice</h1>
       <div class="page-meta">
         <span>🌐 DNS</span>
-        <span>🖥️ Windows Server</span>
+        <span>🐧 Debian / Bind9</span>
+        <span>🖥️ Windows Server 2019</span>
       </div>
     </div>
 
     <div class="info-grid">
       <div class="info-card">
         <div class="label">Contexte</div>
-        <div class="value">Travaux pratiques réalisés en cours de formation BTS SIO SISR</div>
+        <div class="value">ESN Novatice — éditeur de logiciels pour médiathèques. Configuration d'un serveur DNS autoritaire pour le domaine novatice.fr sur deux systèmes.</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Outils</div>
+        <div class="value">Debian 12, Bind9, Windows Server 2019, Gestionnaire DNS</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
-      </div>
-      <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">Windows Server, service DNS, zones de résolution directe et inverse</div>
+        <div class="value">2ème année BTS SIO SISR — 2025-2026</div>
       </div>
     </div>
 
+    <!-- CONTEXTE -->
     <div class="content-section">
-      <h2>Description</h2>
+      <h2>Contexte</h2>
       <p>
-        Installation et configuration du service DNS (Domain Name System) sous Windows Server.
-        Le TP couvre la création et la gestion des zones de résolution directe et inverse,
-        l'ajout d'enregistrements (A, PTR, CNAME, MX) et la mise en place d'un serveur DNS
-        primaire pour un domaine local.
+        L'ESN <strong style="color: var(--text-primary);">Novatice</strong> édite des logiciels destinés aux médiathèques.
+        Elle dispose d'un serveur Windows et d'un serveur Linux au sein de son infrastructure.
+      </p>
+      <p>
+        La mission est de configurer un serveur DNS faisant autorité sur le domaine
+        <strong style="color: var(--accent);">novatice.fr</strong> sur les deux systèmes,
+        avec zones directe et inverse, enregistrements A, PTR et CNAME.
       </p>
     </div>
 
+    <!-- PARTIE LINUX -->
+    <div class="content-section">
+      <div class="section-os-badge badge-linux">Partie 1 — Linux</div>
+      <h2>Debian 12 + Bind9</h2>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        Installer et configurer Bind9 comme serveur DNS faisant autorité sur <strong style="color: var(--text-primary);">novatice.fr</strong>.
+      </p>
+
+      <h3 style="font-size: 1rem; color: var(--text-primary); margin: 1.25rem 0 0.5rem;">Étapes réalisées</h3>
+      <ol class="steps-list">
+        <li>Installation du paquet <strong style="color: var(--text-primary);">bind9</strong> sur Debian</li>
+        <li>Configuration du fichier <strong style="color: var(--text-primary);">named.conf.local</strong> avec zone directe et zone inverse</li>
+        <li>Création du fichier de zone directe dans <strong style="color: var(--text-primary);">/var/cache/bind/novatice</strong></li>
+        <li>Création du fichier de zone inverse dans <strong style="color: var(--text-primary);">/var/cache/bind/novatice.rev</strong></li>
+        <li>Test nslookup zone directe : <strong style="color: var(--text-primary);">debian11.novatice.fr → 192.168.0.72</strong></li>
+        <li>Test zone inverse : <strong style="color: var(--text-primary);">192.168.0.72 → debian11.novatice.fr</strong></li>
+        <li>Test client : accès à <strong style="color: var(--text-primary);">www.novatice.fr</strong> depuis un navigateur</li>
+      </ol>
+
+      <img src="images/dns/status_bind9.png" alt="Statut du service bind9" class="screenshot" />
+      <p class="screenshot-caption">Fig. 1 — Statut du service Bind9 (systemctl status bind9)</p>
+
+      <img src="images/dns/named_conf.png" alt="Contenu de named.conf.local" class="screenshot" />
+      <p class="screenshot-caption">Fig. 2 — Fichier named.conf.local avec zone directe et zone inverse</p>
+
+      <img src="images/dns/zone_directe.png" alt="Fichier de zone directe novatice.fr" class="screenshot" />
+      <p class="screenshot-caption">Fig. 3 — Fichier de zone directe /var/cache/bind/novatice</p>
+
+      <img src="images/dns/zone_inverse.png" alt="Fichier de zone inverse" class="screenshot" />
+      <p class="screenshot-caption">Fig. 4 — Fichier de zone inverse /var/cache/bind/novatice.rev</p>
+
+      <img src="images/dns/nslookup_direct.png" alt="nslookup zone directe" class="screenshot" />
+      <p class="screenshot-caption">Fig. 5 — nslookup zone directe : debian11.novatice.fr → 192.168.0.72</p>
+
+      <img src="images/dns/nslookup_inverse.png" alt="nslookup zone inverse" class="screenshot" />
+      <p class="screenshot-caption">Fig. 6 — nslookup zone inverse : 192.168.0.72 → debian11.novatice.fr</p>
+
+      <img src="images/dns/client_web.png" alt="Accès www.novatice.fr depuis le navigateur" class="screenshot" />
+      <p class="screenshot-caption">Fig. 7 — Test client : résolution de www.novatice.fr dans le navigateur</p>
+    </div>
+
+    <!-- PARTIE WINDOWS -->
+    <div class="content-section">
+      <div class="section-os-badge badge-windows">Partie 2 — Windows</div>
+      <h2>Windows Server 2019 — Gestionnaire DNS</h2>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        Configurer le rôle DNS sur Windows Server 2019 via le Gestionnaire DNS.
+      </p>
+
+      <h3 style="font-size: 1rem; color: var(--text-primary); margin: 1.25rem 0 0.5rem;">Enregistrements configurés</h3>
+      <table class="dns-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Type</th>
+            <th>Valeur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>www</td>
+            <td>Hôte A</td>
+            <td>192.168.0.95</td>
+          </tr>
+          <tr>
+            <td>commercial</td>
+            <td>Alias CNAME</td>
+            <td>www.novatice.fr</td>
+          </tr>
+          <tr>
+            <td>compta</td>
+            <td>Alias CNAME</td>
+            <td>www.novatice.fr</td>
+          </tr>
+          <tr>
+            <td>rh</td>
+            <td>Alias CNAME</td>
+            <td>www.novatice.fr</td>
+          </tr>
+          <tr>
+            <td>tech</td>
+            <td>Alias CNAME</td>
+            <td>www.novatice.fr</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="font-size: 1rem; color: var(--text-primary); margin: 1.25rem 0 0.5rem;">Étapes réalisées</h3>
+      <ol class="steps-list">
+        <li>Installation du rôle DNS via le Gestionnaire de serveur</li>
+        <li>Création de la zone directe <strong style="color: var(--text-primary);">novatice.fr</strong></li>
+        <li>Ajout des enregistrements : www (Hôte A → 192.168.0.95), commercial / compta / rh / tech (Alias CNAME → www.novatice.fr)</li>
+        <li>Création de la zone inverse <strong style="color: var(--text-primary);">0.168.192.in-addr.arpa</strong> avec pointeurs PTR</li>
+        <li>Test PowerShell : <strong style="color: var(--text-primary);">nslookup www.novatice.fr</strong> et <strong style="color: var(--text-primary);">nslookup 192.168.0.95</strong></li>
+        <li>Test navigateur : www.novatice.fr affiche la page IIS</li>
+      </ol>
+
+      <img src="images/dns/gestionnaire_dns.png" alt="Gestionnaire DNS Windows Server 2019" class="screenshot" />
+      <p class="screenshot-caption">Fig. 8 — Gestionnaire DNS avec les zones créées</p>
+
+      <img src="images/dns/zone_directe_win.png" alt="Zone directe novatice.fr sous Windows" class="screenshot" />
+      <p class="screenshot-caption">Fig. 9 — Zone directe novatice.fr avec les enregistrements A et CNAME</p>
+
+      <img src="images/dns/zone_inverse_win.png" alt="Zone inverse sous Windows" class="screenshot" />
+      <p class="screenshot-caption">Fig. 10 — Zone inverse 0.168.192.in-addr.arpa avec les pointeurs PTR</p>
+
+      <img src="images/dns/nslookup_win.png" alt="nslookup depuis PowerShell" class="screenshot" />
+      <p class="screenshot-caption">Fig. 11 — Tests nslookup depuis PowerShell (direct + inverse)</p>
+
+      <img src="images/dns/navigateur_win.png" alt="Accès www.novatice.fr depuis le navigateur" class="screenshot" />
+      <p class="screenshot-caption">Fig. 12 — www.novatice.fr affiche la page IIS depuis le navigateur</p>
+    </div>
+
+    <!-- COMPÉTENCES -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
       <ul class="skills-list">
-        <li>Configuration DNS Windows Server</li>
-        <li>Zones directe et inverse</li>
+        <li>Gérer le patrimoine informatique</li>
+        <li>Mettre à disposition un service informatique</li>
+        <li>Installation et configuration de Bind9 (Debian)</li>
+        <li>Zones directe et inverse DNS</li>
         <li>Enregistrements A, PTR, CNAME</li>
-        <li>Résolution de noms</li>
-        <li>Administration Windows Server</li>
-        <li>Protocole DNS</li>
+        <li>Rôle DNS Windows Server 2019</li>
+        <li>Administration Linux / Windows Server</li>
+        <li>Diagnostic DNS (nslookup)</li>
       </ul>
-    </div>
-
-    <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
-      </div>
     </div>
 
   </main>
