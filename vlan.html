@@ -8,6 +8,143 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .vlan-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+    .vlan-table th {
+      background: rgba(79, 195, 247, 0.1);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.65rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .vlan-table td {
+      padding: 0.65rem 1rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .vlan-table tr:last-child td {
+      border-bottom: none;
+    }
+    .vlan-table tr:hover td {
+      background: rgba(79, 195, 247, 0.04);
+      color: var(--text-primary);
+    }
+    .vlan-id {
+      font-family: 'Courier New', monospace;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .result-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .result-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .result-ok {
+      color: #4caf50;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .result-fail {
+      color: #ef5350;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .screenshot-placeholder {
+      background: var(--bg-secondary);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      margin-top: 1rem;
+    }
+    .screenshot-placeholder span {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 0.5rem;
+    }
+    .objectives-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.45rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .objectives-list li:last-child {
+      border-bottom: none;
+    }
+    .objectives-list li::before {
+      content: '›';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    .alert-box {
+      background: rgba(239, 83, 80, 0.06);
+      border: 1px solid rgba(239, 83, 80, 0.25);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .alert-box .alert-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ef5350;
+      margin-bottom: 0.4rem;
+    }
+    .alert-box p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin: 0 !important;
+    }
+    .solution-box {
+      background: rgba(76, 175, 80, 0.06);
+      border: 1px solid rgba(76, 175, 80, 0.25);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+    .solution-box .solution-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4caf50;
+      margin-bottom: 0.4rem;
+    }
+    .solution-box p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin: 0 !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -20,60 +157,153 @@
 
     <div class="page-header">
       <div class="page-badge">Formation — BTS SIO SISR</div>
-      <h1>TP VLAN</h1>
+      <h1>TP VLAN — Entreprise CAVELAN</h1>
       <div class="page-meta">
         <span>🌐 Réseau</span>
         <span>🔀 Commutation</span>
+        <span>📦 Cisco Packet Tracer</span>
       </div>
     </div>
 
     <div class="info-grid">
       <div class="info-card">
         <div class="label">Contexte</div>
-        <div class="value">Travaux pratiques réalisés en cours de formation BTS SIO SISR</div>
+        <div class="value">Société d'édition de logiciels — 3 services répartis sur 3 étages, segmentation sans modification du câblage physique</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Outils</div>
+        <div class="value">Cisco Packet Tracer — Switchs Cisco 2960</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
-      </div>
-      <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">Switches managés, routeur, protocole 802.1Q, Cisco / Packet Tracer</div>
+        <div class="value">1ère année BTS SIO SISR — 2024-2025</div>
       </div>
     </div>
 
+    <!-- CONTEXTE -->
     <div class="content-section">
-      <h2>Description</h2>
+      <h2>Contexte</h2>
       <p>
-        Configuration de VLANs (Virtual Local Area Networks) afin de segmenter un réseau d'entreprise
-        en plusieurs domaines de diffusion logiques. Ce cloisonnement améliore la sécurité, les performances
-        et la gestion des flux réseau.
+        L'entreprise <strong style="color: var(--text-primary);">CAVELAN</strong> est une société d'édition de logiciels organisée en trois services :
+        Administratif, Développement et Commercial, chacun réparti sur un étage différent du bâtiment.
       </p>
       <p>
-        Le projet inclut la configuration des accès (access ports), des liens trunk (trunk ports)
-        et du routage inter-VLAN (router-on-a-stick ou L3 switch).
+        La mission consiste à segmenter logiquement le réseau en utilisant des VLANs (Virtual Local Area Networks),
+        sans modifier le câblage physique existant. Cette segmentation améliore la sécurité et les performances
+        en isolant les flux de chaque service.
       </p>
     </div>
 
-    <div class="skills-section">
-      <h2>Compétences mobilisées</h2>
-      <ul class="skills-list">
-        <li>Configuration de VLANs (802.1Q)</li>
-        <li>Trunk et access ports</li>
-        <li>Routage inter-VLAN</li>
-        <li>Administration de switches</li>
-        <li>Adressage IP</li>
-        <li>Segmentation réseau</li>
-        <li>Cisco IOS / Packet Tracer</li>
-        <li>Sécurité réseau</li>
+    <!-- OBJECTIFS -->
+    <div class="content-section">
+      <h2>Objectifs</h2>
+      <ul class="objectives-list">
+        <li>Créer et nommer les VLANs sur les switchs Cisco 2960</li>
+        <li>Rattacher les ports aux bons VLANs (mode access)</li>
+        <li>Configurer les ports trunk entre les switchs (802.1Q)</li>
+        <li>Vérifier l'étanchéité des VLANs par des tests de connectivité</li>
       </ul>
     </div>
 
+    <!-- PLAN D'ADRESSAGE -->
     <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
+      <h2>Plan d'adressage</h2>
+      <table class="vlan-table">
+        <thead>
+          <tr>
+            <th>VLAN</th>
+            <th>Nom</th>
+            <th>Réseau</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="vlan-id">VLAN 110</span></td>
+            <td>Administratif</td>
+            <td>192.168.110.0/24</td>
+          </tr>
+          <tr>
+            <td><span class="vlan-id">VLAN 120</span></td>
+            <td>Développement</td>
+            <td>192.168.120.0/24</td>
+          </tr>
+          <tr>
+            <td><span class="vlan-id">VLAN 130</span></td>
+            <td>Commercial</td>
+            <td>192.168.130.0/24</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="screenshot-placeholder" style="margin-top: 1.25rem;">
+        <span>🖼️</span>
+        Capture d'écran — Topologie réseau Packet Tracer (à insérer)
       </div>
+    </div>
+
+    <!-- PROBLÈME & SOLUTION -->
+    <div class="content-section">
+      <h2>Problème rencontré &amp; solution</h2>
+
+      <div class="alert-box">
+        <div class="alert-label">Problème</div>
+        <p>
+          Les ports trunk étaient configurés sur les interfaces <strong>Fa0/21–24</strong>,
+          mais les câbles inter-switchs étaient branchés sur les ports <strong>Gig0/1</strong>.
+          Les VLANs ne se propageaient donc pas entre les switchs.
+        </p>
+      </div>
+
+      <div class="solution-box" style="margin-top: 0.75rem;">
+        <div class="solution-label">Solution</div>
+        <p>
+          Reconfiguration des ports <strong>Gig0/1</strong> en mode trunk sur chaque switch,
+          en retirant la configuration trunk des ports Fa0/21–24 inutilisés.
+        </p>
+      </div>
+
+      <div class="screenshot-placeholder">
+        <span>🖼️</span>
+        Capture d'écran — Configuration trunk Gig0/1 (à insérer)
+      </div>
+    </div>
+
+    <!-- RÉSULTATS -->
+    <div class="content-section">
+      <h2>Résultats</h2>
+      <div class="result-item">
+        <span class="result-ok">✅</span>
+        <span><strong style="color: var(--text-primary);">Ping ADM11 → ADM21 :</strong> succès — les machines du même VLAN communiquent bien entre elles.</span>
+      </div>
+      <div class="result-item">
+        <span class="result-ok">✅</span>
+        <span><strong style="color: var(--text-primary);">Ping ADM11 → DEV11 :</strong> échec — les VLANs différents sont bien isolés (étanchéité confirmée).</span>
+      </div>
+
+      <div class="screenshot-placeholder">
+        <span>🖼️</span>
+        Capture d'écran — Tests de ping (à insérer)
+      </div>
+
+      <div class="screenshot-placeholder">
+        <span>🖼️</span>
+        Capture d'écran — Vérification VLANs (show vlan brief) (à insérer)
+      </div>
+    </div>
+
+    <!-- COMPÉTENCES -->
+    <div class="skills-section">
+      <h2>Compétences mobilisées</h2>
+      <ul class="skills-list">
+        <li>Gérer le patrimoine informatique</li>
+        <li>Mettre à disposition un service informatique</li>
+        <li>Configuration de VLANs (802.1Q)</li>
+        <li>Trunk et access ports</li>
+        <li>Administration de switchs Cisco</li>
+        <li>Adressage IP / segmentation réseau</li>
+        <li>Cisco IOS / Packet Tracer</li>
+        <li>Diagnostic et résolution de problèmes</li>
+      </ul>
     </div>
 
   </main>
