@@ -66,19 +66,18 @@
       font-weight: 700;
       flex-shrink: 0;
     }
-    .screenshot-placeholder {
-      background: var(--bg-secondary);
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.82rem;
-      margin-top: 1rem;
-    }
-    .screenshot-placeholder span {
+    .screenshot {
       display: block;
-      font-size: 1.5rem;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-top: 1.25rem;
+    }
+    .screenshot-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.4rem;
       margin-bottom: 0.5rem;
     }
     .objectives-list {
@@ -235,10 +234,10 @@
         </tbody>
       </table>
 
-      <div class="screenshot-placeholder" style="margin-top: 1.25rem;">
-        <span>🖼️</span>
-        Capture d'écran — Topologie réseau Packet Tracer (à insérer)
-      </div>
+      <img src="images/vlan/01_topologie.png" alt="Topologie réseau Packet Tracer" class="screenshot" />
+      <p class="screenshot-caption">Fig. 1 — Topologie réseau dans Cisco Packet Tracer</p>
+      <img src="images/vlan/02_vlan_brief.png" alt="show vlan brief" class="screenshot" />
+      <p class="screenshot-caption">Fig. 2 — Vérification des VLANs configurés (show vlan brief)</p>
     </div>
 
     <!-- PROBLÈME & SOLUTION -->
@@ -262,10 +261,10 @@
         </p>
       </div>
 
-      <div class="screenshot-placeholder">
-        <span>🖼️</span>
-        Capture d'écran — Configuration trunk Gig0/1 (à insérer)
-      </div>
+      <img src="images/vlan/03_config_trunk.png" alt="Configuration trunk Gig0/1" class="screenshot" />
+      <p class="screenshot-caption">Fig. 3 — Configuration des ports Gig0/1 en mode trunk</p>
+      <img src="images/vlan/04_show_trunk.png" alt="show interfaces trunk" class="screenshot" />
+      <p class="screenshot-caption">Fig. 4 — Vérification des liens trunk (show interfaces trunk)</p>
     </div>
 
     <!-- RÉSULTATS -->
@@ -280,15 +279,10 @@
         <span><strong style="color: var(--text-primary);">Ping ADM11 → DEV11 :</strong> échec — les VLANs différents sont bien isolés (étanchéité confirmée).</span>
       </div>
 
-      <div class="screenshot-placeholder">
-        <span>🖼️</span>
-        Capture d'écran — Tests de ping (à insérer)
-      </div>
-
-      <div class="screenshot-placeholder">
-        <span>🖼️</span>
-        Capture d'écran — Vérification VLANs (show vlan brief) (à insérer)
-      </div>
+      <img src="images/vlan/05_ping_ok.png" alt="Ping ADM11 vers ADM21 - succès" class="screenshot" />
+      <p class="screenshot-caption">Fig. 5 — Ping ADM11 → ADM21 : succès (même VLAN)</p>
+      <img src="images/vlan/06_ping_ko.png" alt="Ping ADM11 vers DEV11 - échec" class="screenshot" />
+      <p class="screenshot-caption">Fig. 6 — Ping ADM11 → DEV11 : échec (VLANs différents — étanchéité confirmée)</p>
     </div>
 
     <!-- COMPÉTENCES -->
