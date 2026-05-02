@@ -9,49 +9,117 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    .step-list {
-      list-style: none;
-      padding: 0;
-      margin: 0.75rem 0 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-    .step-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.9rem;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border);
+    /* ── Terminal / code block ── */
+    .cli-block {
+      background: #0d1117;
+      border: 1px solid rgba(79, 195, 247, 0.2);
       border-radius: 8px;
-      background: rgba(79, 195, 247, 0.025);
-      font-size: 0.9rem;
-      color: var(--text-secondary);
+      padding: 1rem 1.2rem;
+      margin-top: 0.75rem;
+      overflow-x: auto;
     }
-    .step-num {
+    .cli-block pre {
+      margin: 0;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: #e6edf3;
+    }
+    .cli-block pre .cmd  { color: #79c0ff; }
+    .cli-block pre .kw   { color: #ff7b72; }
+    .cli-block pre .val  { color: #a5d6ff; }
+    .cli-block pre .ip   { color: #ffa657; }
+    .cli-block pre .cmt  { color: #8b949e; font-style: italic; }
+
+    /* ── Task card wrapper ── */
+    .task-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+      margin-top: 1.2rem;
+    }
+    .task-card.relay { border-color: rgba(255, 167, 38, 0.35); background: rgba(255, 167, 38, 0.025); }
+    .task-card.server { border-color: rgba(79, 195, 247, 0.35); background: rgba(79, 195, 247, 0.025); }
+
+    .task-label {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      min-width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(79, 195, 247, 0.12);
-      border: 1px solid rgba(79, 195, 247, 0.3);
-      font-size: 0.8rem;
+      gap: 0.5rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      color: var(--accent);
-      flex-shrink: 0;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      margin-bottom: 0.8rem;
     }
-    .step-list li .step-label {
-      padding-top: 0.05rem;
-      line-height: 1.5;
+    .task-label.relay  { background: rgba(255, 167, 38, 0.12); border: 1px solid rgba(255, 167, 38, 0.3); color: #ffb74d; }
+    .task-label.server { background: rgba(79, 195, 247, 0.12); border: 1px solid rgba(79, 195, 247, 0.3); color: var(--accent); }
+
+    .task-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 0.6rem;
     }
-    .tool-list {
+    .task-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0 0 0.9rem;
+    }
+
+    .result-box {
       display: flex;
-      flex-direction: column;
+      align-items: flex-start;
       gap: 0.7rem;
-      margin-top: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.87rem;
+      line-height: 1.5;
+      margin-top: 0.9rem;
     }
+    .result-box.ok   { background: rgba(76, 175, 80, 0.07); border: 1px solid rgba(76, 175, 80, 0.3); color: #a5d6a7; }
+    .result-box.warn { background: rgba(255, 167, 38, 0.07); border: 1px solid rgba(255, 167, 38, 0.3); color: #ffcc80; }
+    .result-box .rb-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    /* ── Comparison table ── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+      font-size: 0.87rem;
+    }
+    .compare-table thead tr {
+      background: rgba(79, 195, 247, 0.08);
+    }
+    .compare-table th {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--accent);
+      border-bottom: 1px solid rgba(79, 195, 247, 0.2);
+    }
+    .compare-table td {
+      padding: 0.65rem 1rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .compare-table tbody tr:last-child td { border-bottom: none; }
+    .compare-table tbody tr:hover td { background: rgba(79, 195, 247, 0.03); }
+    .compare-table .tag-cmd {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.78rem;
+      background: rgba(79, 195, 247, 0.1);
+      border: 1px solid rgba(79, 195, 247, 0.25);
+      border-radius: 4px;
+      padding: 0.1rem 0.45rem;
+      color: #79c0ff;
+    }
+
+    /* ── Tool cards ── */
+    .tool-list { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.75rem; }
     .tool-item {
       display: flex;
       align-items: flex-start;
@@ -64,6 +132,8 @@
     .tool-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
     .tool-name { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
     .tool-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+    /* ── Skills ── */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -81,13 +151,9 @@
       color: var(--text-secondary);
     }
     .skill-item::before { content: '✓'; color: #81c784; font-weight: 700; flex-shrink: 0; }
-    .screenshot-caption {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 0.4rem;
-      margin-bottom: 0.5rem;
-    }
+
+    /* ── Screenshots ── */
+    .screenshot-caption { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 0.4rem; margin-bottom: 0.5rem; }
     .screenshot-placeholder {
       display: flex;
       align-items: center;
@@ -101,21 +167,6 @@
       font-size: 0.8rem;
       margin-top: 1.25rem;
     }
-    .config-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 0.9rem;
-      margin-top: 0.75rem;
-    }
-    .config-card {
-      border: 1px solid rgba(79, 195, 247, 0.3);
-      border-radius: 8px;
-      padding: 1rem 1.1rem;
-      background: rgba(79, 195, 247, 0.04);
-    }
-    .config-card .cfg-icon { font-size: 1.3rem; margin-bottom: 0.5rem; }
-    .config-card .cfg-title { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem; }
-    .config-card .cfg-detail { font-size: 0.8rem; color: var(--text-muted); }
   </style>
 </head>
 <body>
@@ -132,7 +183,7 @@
       <h1>Paramétrage DHCP — Linkt</h1>
       <div class="page-meta">
         <span>🏢 Linkt</span>
-        <span>🌐 Administration réseau à distance</span>
+        <span>🌐 Administration réseau Cisco</span>
         <span>📅 Janvier–Février 2026</span>
       </div>
     </div>
@@ -140,7 +191,7 @@
     <div class="info-grid">
       <div class="info-card">
         <div class="label">Contexte</div>
-        <div class="value">Configuration du service DHCP sur les équipements réseau clients à distance — Cisco, Keenetic, Zyxel</div>
+        <div class="value">Configuration DHCP à distance sur routeurs Cisco clients via SecureCRT — 2 interventions réelles</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
@@ -152,84 +203,115 @@
       </div>
     </div>
 
-    <!-- ── Section 1 : Processus ── -->
+    <!-- ── Intro ── -->
     <div class="content-section">
-      <h2>Processus de paramétrage DHCP</h2>
-      <p>Le paramétrage DHCP se fait entièrement à distance sur l'équipement du client, en suivant une procédure structurée pour garantir l'attribution correcte des adresses IP sur le réseau local.</p>
-
-      <ol class="step-list">
-        <li>
-          <span class="step-num">1</span>
-          <span class="step-label">Connexion à distance sur l'équipement réseau du client</span>
-        </li>
-        <li>
-          <span class="step-num">2</span>
-          <span class="step-label">Accès à l'interface d'administration du routeur (Cisco, Keenetic ou Zyxel)</span>
-        </li>
-        <li>
-          <span class="step-num">3</span>
-          <span class="step-label">Configuration du serveur DHCP — définition de la <strong>plage d'adresses</strong>, de la <strong>passerelle par défaut</strong> et des <strong>serveurs DNS</strong></span>
-        </li>
-        <li>
-          <span class="step-num">4</span>
-          <span class="step-label">Vérification que les postes clients obtiennent bien une adresse IP dynamique</span>
-        </li>
-        <li>
-          <span class="step-num">5</span>
-          <span class="step-label">Test de connectivité depuis les postes clients — accès internet et résolution DNS</span>
-        </li>
-        <li>
-          <span class="step-num">6</span>
-          <span class="step-label">Compte rendu et clôture du ticket dans <strong>Linkticket</strong></span>
-        </li>
-      </ol>
+      <h2>Contexte général</h2>
+      <p>Durant mon stage chez Linkt, j'ai traité plusieurs tickets liés à la configuration DHCP sur des équipements réseau clients (routeurs Cisco). Voici deux interventions réelles réalisées à distance via <strong>SecureCRT</strong>.</p>
     </div>
 
-    <!-- ── Section 2 : Paramètres configurés ── -->
+    <!-- ── Tâche 1 ── -->
     <div class="content-section">
-      <h2>Paramètres configurés</h2>
+      <h2>Interventions réalisées</h2>
 
-      <div class="config-grid">
-        <div class="config-card">
-          <div class="cfg-icon">📋</div>
-          <div class="cfg-title">Plage d'adresses IP</div>
-          <div class="cfg-detail">Définition du pool DHCP adapté au réseau client (ex. 192.168.1.100–200)</div>
+      <div class="task-card relay">
+        <div class="task-label relay">Tâche 1</div>
+        <h3>Mise en place d'un relais DHCP</h3>
+        <p>
+          Un client avec un routeur <strong>Cisco C1117</strong> et plusieurs VLANs. Les clients du VLAN 2 devaient obtenir leurs IPs depuis un serveur DHCP distant à <code>10.164.4.1</code>. Le routeur devait relayer les requêtes DHCP broadcast vers ce serveur.
+        </p>
+
+        <div class="cli-block">
+          <pre><span class="cmd">enable</span>
+<span class="cmd">configure terminal</span>
+<span class="cmd">interface</span> <span class="val">Vlan2</span>
+  <span class="kw">ip helper-address</span> <span class="ip">10.164.4.1</span>
+<span class="cmd">exit</span>
+<span class="kw">write memory</span>
+<span class="cmd">show running-config</span> <span class="val">| include helper-address</span></pre>
         </div>
-        <div class="config-card">
-          <div class="cfg-icon">🔀</div>
-          <div class="cfg-title">Passerelle par défaut</div>
-          <div class="cfg-detail">Adresse IP du routeur transmise aux clients pour le routage sortant</div>
+
+        <div class="result-box warn">
+          <span class="rb-icon">⚠️</span>
+          <span>Le routeur transforme correctement les trames DHCP broadcast en unicast vers <strong>10.164.4.1</strong>. Problème rencontré : le serveur <strong>10.164.4.1</strong> n'était pas joignable — relais correctement configuré, mais l'accessibilité du serveur restait à résoudre côté client.</span>
         </div>
-        <div class="config-card">
-          <div class="cfg-icon">🔍</div>
-          <div class="cfg-title">Serveurs DNS</div>
-          <div class="cfg-detail">Serveurs DNS primaire et secondaire fournis aux clients DHCP</div>
+      </div>
+
+      <!-- ── Tâche 2 ── -->
+      <div class="task-card server">
+        <div class="task-label server">Tâche 2</div>
+        <h3>Activation du serveur DHCP sur un routeur 4G</h3>
+        <p>
+          Un routeur 4G de formation ne délivrait aucune adresse IP aux équipements branchés. Mission : activer le serveur DHCP directement sur la partie LAN du routeur.
+        </p>
+
+        <div class="cli-block">
+          <pre><span class="cmd">enable</span>
+<span class="cmd">configure terminal</span>
+<span class="kw">service dhcp</span>
+<span class="kw">ip dhcp pool</span> <span class="val">FORMATION</span>
+  <span class="kw">network</span>         <span class="ip">192.168.1.0</span> <span class="ip">255.255.255.0</span>
+  <span class="kw">default-router</span>  <span class="ip">192.168.1.1</span>
+  <span class="kw">dns-server</span>      <span class="ip">8.8.8.8</span> <span class="ip">8.8.4.4</span>
+<span class="cmd">exit</span>
+<span class="kw">ip dhcp excluded-address</span> <span class="ip">192.168.1.1</span>
+<span class="cmd">interface</span> <span class="val">Vlan1</span>
+  <span class="kw">ip address</span> <span class="ip">192.168.1.1</span> <span class="ip">255.255.255.0</span>
+  <span class="kw">no shutdown</span>
+<span class="cmd">exit</span>
+<span class="kw">write memory</span></pre>
         </div>
-        <div class="config-card">
-          <div class="cfg-icon">⏱️</div>
-          <div class="cfg-title">Durée de bail</div>
-          <div class="cfg-detail">Lease time configuré selon les besoins du réseau client</div>
+
+        <div class="result-box ok">
+          <span class="rb-icon">✅</span>
+          <span>Les équipements branchés reçoivent automatiquement une IP de la plage <strong>192.168.1.0/24</strong> — serveur DHCP opérationnel.</span>
         </div>
       </div>
     </div>
 
-    <!-- ── Section 3 : Outils ── -->
+    <!-- ── Synthèse ── -->
+    <div class="content-section">
+      <h2>Synthèse comparative</h2>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Mode</th>
+            <th>Commande clé</th>
+            <th>Rôle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Relais DHCP</td>
+            <td><span class="tag-cmd">ip helper-address</span></td>
+            <td>Transmettre les requêtes DHCP broadcast vers un serveur distant</td>
+          </tr>
+          <tr>
+            <td>Serveur DHCP local</td>
+            <td><span class="tag-cmd">ip dhcp pool</span></td>
+            <td>Distribuer les adresses IP directement depuis le routeur</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── Outils ── -->
     <div class="content-section">
       <h2>Outils utilisés</h2>
 
       <div class="tool-list">
         <div class="tool-item">
-          <span class="tool-icon">🖥️</span>
+          <span class="tool-icon">🔧</span>
           <div>
-            <div class="tool-name">Accès à distance aux équipements</div>
-            <div class="tool-desc">Prise en main à distance du routeur client pour accès à l'interface d'administration</div>
+            <div class="tool-name">Routeur Cisco C1117</div>
+            <div class="tool-desc">Équipement réseau client — configuration via CLI IOS</div>
           </div>
         </div>
         <div class="tool-item">
-          <span class="tool-icon">🔧</span>
+          <span class="tool-icon">🖥️</span>
           <div>
-            <div class="tool-name">Équipements Cisco / Keenetic / Zyxel</div>
-            <div class="tool-desc">Interfaces d'administration web ou CLI selon le modèle d'équipement client</div>
+            <div class="tool-name">SecureCRT</div>
+            <div class="tool-desc">Client SSH/Telnet pour la prise en main à distance des équipements réseau</div>
           </div>
         </div>
         <div class="tool-item">
@@ -242,17 +324,17 @@
       </div>
     </div>
 
-    <!-- ── Section 4 : Compétences ── -->
+    <!-- ── Compétences ── -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
 
       <div class="skills-grid">
         <div class="skill-item">Gérer le patrimoine informatique</div>
         <div class="skill-item">Répondre aux incidents et demandes d'assistance</div>
-        <div class="skill-item">Configuration de services réseau DHCP</div>
-        <div class="skill-item">Administration d'équipements Cisco, Keenetic, Zyxel</div>
-        <div class="skill-item">Diagnostic et vérification de connectivité</div>
-        <div class="skill-item">Compte rendu d'intervention dans un outil de ticketing</div>
+        <div class="skill-item">Configuration DHCP en mode relais et serveur</div>
+        <div class="skill-item">Administration CLI IOS sur routeur Cisco</div>
+        <div class="skill-item">Diagnostic et vérification de la configuration</div>
+        <div class="skill-item">Prise en main à distance via SecureCRT</div>
       </div>
     </div>
 
@@ -260,14 +342,14 @@
     <div class="content-section">
       <h2>Captures d'écran</h2>
 
-      <div class="screenshot-placeholder">[ Capture — interface_dhcp_equipement ]</div>
-      <p class="screenshot-caption">Fig. 1 — Interface d'administration — configuration du serveur DHCP sur l'équipement client</p>
+      <div class="screenshot-placeholder">[ Capture — securecrt_session_cisco ]</div>
+      <p class="screenshot-caption">Fig. 1 — Session SecureCRT — connexion au routeur Cisco C1117 du client</p>
 
-      <div class="screenshot-placeholder">[ Capture — pool_adresses_ip ]</div>
-      <p class="screenshot-caption">Fig. 2 — Paramétrage de la plage d'adresses IP, passerelle et DNS</p>
+      <div class="screenshot-placeholder">[ Capture — config_helper_address ]</div>
+      <p class="screenshot-caption">Fig. 2 — Configuration du relais DHCP — commande <code>ip helper-address</code> sur l'interface VLAN 2</p>
 
-      <div class="screenshot-placeholder">[ Capture — verification_attribution_ip ]</div>
-      <p class="screenshot-caption">Fig. 3 — Vérification de l'attribution d'adresse IP sur un poste client</p>
+      <div class="screenshot-placeholder">[ Capture — dhcp_pool_formation ]</div>
+      <p class="screenshot-caption">Fig. 3 — Configuration du pool DHCP local FORMATION — show running-config</p>
     </div>
 
   </main>
