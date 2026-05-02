@@ -3,11 +3,272 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TP UFW / Suricata / Fail2ban — Abraham Emmanuel</title>
+  <title>TP UFW / Suricata / Fail2ban — VM Bastion Debian — Abraham Emmanuel</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Command blocks ── */
+    .cmd-block {
+      background: rgba(10, 14, 20, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-top: 0.75rem;
+      overflow-x: auto;
+    }
+    .cmd-block code {
+      display: block;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.82rem;
+      color: #a5d6a7;
+      line-height: 1.75;
+      white-space: pre;
+    }
+    .cmd-block code .prompt {
+      color: #4fc3f7;
+      user-select: none;
+    }
+
+    /* ── Config file blocks ── */
+    .config-block {
+      background: rgba(10, 14, 20, 0.85);
+      border: 1px solid rgba(79, 195, 247, 0.2);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-top: 0.75rem;
+      overflow-x: auto;
+    }
+    .config-block .config-filename {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .config-block code {
+      display: block;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.82rem;
+      color: #e0e0e0;
+      line-height: 1.8;
+      white-space: pre;
+    }
+    .config-block code .key   { color: #80cbc4; }
+    .config-block code .val   { color: #ffcc80; }
+    .config-block code .sec   { color: #f48fb1; font-weight: 700; }
+    .config-block code .comment { color: #616161; font-style: italic; }
+
+    /* ── Role badge inline ── */
+    .role-badge {
+      display: inline-block;
+      background: rgba(79, 195, 247, 0.1);
+      border: 1px solid rgba(79, 195, 247, 0.25);
+      border-radius: 6px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+
+    /* ── Architecture flow ── */
+    .arch-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .arch-node {
+      flex: 1;
+      min-width: 110px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      text-align: center;
+    }
+    .arch-node .node-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .arch-node .node-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .arch-node.ufw    { border-color: rgba(76, 175, 80, 0.4);  background: rgba(76, 175, 80, 0.05);  }
+    .arch-node.ufw .node-name    { color: #81c784; }
+    .arch-node.suricata { border-color: rgba(255, 167, 38, 0.4); background: rgba(255, 167, 38, 0.05); }
+    .arch-node.suricata .node-name { color: #ffb74d; }
+    .arch-node.fail2ban { border-color: rgba(239, 83, 80, 0.4); background: rgba(239, 83, 80, 0.05);  }
+    .arch-node.fail2ban .node-name { color: #ef9a9a; }
+    .arch-arrow {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      padding: 0 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Result / test cards ── */
+    .attack-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .attack-card .attack-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+    }
+    .attack-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(79, 195, 247, 0.12);
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .attack-card .attack-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .attack-chain {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0 0;
+    }
+    .attack-chain li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.35rem 0;
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .attack-chain li:last-child { border-bottom: none; }
+    .attack-chain li::before {
+      content: '›';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .badge-detect {
+      display: inline-block;
+      background: rgba(255, 167, 38, 0.12);
+      color: #ffb74d;
+      border: 1px solid rgba(255, 167, 38, 0.3);
+      border-radius: 4px;
+      padding: 0.1rem 0.45rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+    }
+    .badge-ban {
+      display: inline-block;
+      background: rgba(239, 83, 80, 0.12);
+      color: #ef9a9a;
+      border: 1px solid rgba(239, 83, 80, 0.3);
+      border-radius: 4px;
+      padding: 0.1rem 0.45rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Screenshot helpers ── */
+    .screenshot {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-top: 1.25rem;
+    }
+    .screenshot-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .screenshot-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 140px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: rgba(79, 195, 247, 0.03);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 1.25rem;
+    }
+
+    /* ── Section result note ── */
+    .result-note {
+      background: rgba(76, 175, 80, 0.06);
+      border: 1px solid rgba(76, 175, 80, 0.25);
+      border-radius: 8px;
+      padding: 0.75rem 1.1rem;
+      margin-top: 1rem;
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+    }
+    .result-note strong { color: #81c784; }
+
+    /* ── Terminal note (3 split) ── */
+    .terminal-split {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .terminal-pane {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.78rem;
+    }
+    .terminal-pane .pane-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .pane-ufw     .pane-label { color: #81c784; }
+    .pane-suricata .pane-label { color: #ffb74d; }
+    .pane-fail2ban .pane-label { color: #ef9a9a; }
+    .terminal-pane .pane-cmd {
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 680px) {
+      .arch-flow      { flex-direction: column; align-items: stretch; }
+      .arch-arrow     { transform: rotate(90deg); text-align: center; }
+      .terminal-split { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -18,62 +279,247 @@
 
   <main class="page-container">
 
+    <!-- EN-TÊTE -->
     <div class="page-header">
       <div class="page-badge">Formation — BTS SIO SISR</div>
-      <h1>TP UFW / Suricata / Fail2ban</h1>
+      <h1>TP UFW / Suricata / Fail2ban — VM Bastion Debian</h1>
       <div class="page-meta">
-        <span>🔒 Sécurité réseau</span>
-        <span>🐧 Linux</span>
+        <span>🛡️ Sécurité réseau</span>
+        <span>🐧 Debian 12</span>
+        <span>🔍 IDS / IPS</span>
       </div>
     </div>
 
+    <!-- FICHE INFO -->
     <div class="info-grid">
       <div class="info-card">
         <div class="label">Contexte</div>
-        <div class="value">Travaux pratiques réalisés en cours de formation BTS SIO SISR</div>
+        <div class="value">Sécurisation de l'infrastructure réseau de l'îlot — déploiement d'une VM Bastion sous Debian pour une défense en profondeur contre les intrusions (brute force, scan de ports, flood HTTP).</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Outils</div>
+        <div class="value">Debian 12 — UFW — Suricata — Fail2ban — Nmap</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
-      </div>
-      <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">Linux (Ubuntu/Debian), pare-feu UFW, IDS Suricata, Fail2ban</div>
+        <div class="value">2ème année BTS SIO SISR — 2025-2026</div>
       </div>
     </div>
 
+    <!-- ARCHITECTURE GLOBALE -->
     <div class="content-section">
-      <h2>Description</h2>
+      <h2>Architecture — défense en profondeur</h2>
       <p>
-        Mise en place d'une solution de sécurisation d'un serveur Linux combinant trois outils complémentaires :
-        UFW (Uncomplicated Firewall) pour le filtrage des flux réseau, Suricata comme système de détection
-        d'intrusion (IDS/IPS), et Fail2ban pour le blocage automatique des adresses IP malveillantes.
+        Les trois outils fonctionnent en couches complémentaires. UFW filtre le trafic en amont,
+        Suricata analyse le contenu des paquets autorisés, et Fail2ban réagit en bannissant automatiquement
+        les IPs identifiées comme malveillantes.
       </p>
-      <p>
-        L'objectif était de configurer une défense en profondeur (defense-in-depth) permettant de détecter,
-        filtrer et contrer les tentatives d'intrusion et attaques de type brute-force.
-      </p>
+      <div class="arch-flow">
+        <div class="arch-node ufw">
+          <div class="node-name">UFW</div>
+          <div class="node-desc">Pare-feu — filtre</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node suricata">
+          <div class="node-name">Suricata</div>
+          <div class="node-desc">IDS — surveille</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node fail2ban">
+          <div class="node-name">Fail2ban</div>
+          <div class="node-desc">Bannit les IPs</div>
+        </div>
+      </div>
     </div>
 
+    <!-- SECTION 1 — UFW -->
+    <div class="content-section">
+      <h2>1 — UFW <span class="role-badge">Pare-feu</span></h2>
+      <p>
+        UFW (Uncomplicated Firewall) est le premier rempart. Il applique une politique <strong style="color:var(--text-primary);">deny incoming</strong>
+        par défaut et n'autorise que les ports explicitement ouverts.
+      </p>
+
+      <div class="cmd-block">
+        <code><span class="prompt">$ </span>sudo apt install ufw
+<span class="prompt">$ </span>sudo ufw default deny incoming
+<span class="prompt">$ </span>sudo ufw default allow outgoing
+<span class="prompt">$ </span>sudo ufw allow 22
+<span class="prompt">$ </span>sudo ufw allow 80
+<span class="prompt">$ </span>sudo ufw enable
+<span class="prompt">$ </span>sudo ufw status</code>
+      </div>
+
+      <div class="result-note">
+        <strong>Résultat :</strong> tout le trafic entrant est bloqué par défaut — seuls SSH (port 22) et HTTP (port 80) sont autorisés.
+      </div>
+
+      <div class="screenshot-placeholder">[ Capture — ufw_status ]</div>
+      <p class="screenshot-caption">Fig. 1 — sudo ufw status — règles actives</p>
+
+      <div class="screenshot-placeholder">[ Capture — ufw_regles ]</div>
+      <p class="screenshot-caption">Fig. 2 — Règles UFW en détail (verbose)</p>
+    </div>
+
+    <!-- SECTION 2 — FAIL2BAN -->
+    <div class="content-section">
+      <h2>2 — Fail2ban <span class="role-badge">Bannissement</span></h2>
+      <p>
+        Fail2ban lit les journaux système et réseau, détecte les comportements suspects (trop de tentatives ratées)
+        et bannit automatiquement les IPs via UFW.
+      </p>
+
+      <div class="cmd-block">
+        <code><span class="prompt">$ </span>sudo apt install fail2ban
+<span class="prompt">$ </span>sudo nano /etc/fail2ban/jail.local
+<span class="prompt">$ </span>sudo systemctl restart fail2ban
+<span class="prompt">$ </span>sudo fail2ban-client status
+<span class="prompt">$ </span>sudo fail2ban-client status sshd
+<span class="prompt">$ </span>sudo fail2ban-client status suricata</code>
+      </div>
+
+      <div class="config-block">
+        <div class="config-filename">/etc/fail2ban/jail.local</div>
+        <code><span class="sec">[sshd]</span>
+<span class="key">enabled</span>  = <span class="val">true</span>
+<span class="key">port</span>     = <span class="val">22</span>
+<span class="key">maxretry</span> = <span class="val">3</span>
+<span class="key">bantime</span>  = <span class="val">10m</span>
+<span class="key">backend</span>  = <span class="val">systemd</span>
+
+<span class="sec">[suricata]</span>
+<span class="key">enabled</span>   = <span class="val">true</span>
+<span class="key">filter</span>    = <span class="val">suricata</span>
+<span class="key">logpath</span>   = <span class="val">/var/log/suricata/fast.log</span>
+<span class="key">maxretry</span>  = <span class="val">1</span>
+<span class="key">bantime</span>   = <span class="val">600</span>
+<span class="key">findtime</span>  = <span class="val">600</span>
+<span class="key">banaction</span> = <span class="val">ufw</span></code>
+      </div>
+
+      <div class="screenshot-placeholder">[ Capture — fail2ban_status ]</div>
+      <p class="screenshot-caption">Fig. 3 — sudo fail2ban-client status — jails actives</p>
+
+      <div class="screenshot-placeholder">[ Capture — fail2ban_sshd ]</div>
+      <p class="screenshot-caption">Fig. 4 — sudo fail2ban-client status sshd</p>
+
+      <div class="screenshot-placeholder">[ Capture — fail2ban_suricata ]</div>
+      <p class="screenshot-caption">Fig. 5 — sudo fail2ban-client status suricata</p>
+    </div>
+
+    <!-- SECTION 3 — SURICATA -->
+    <div class="content-section">
+      <h2>3 — Suricata <span class="role-badge">IDS</span></h2>
+      <p>
+        Suricata est un système de détection d'intrusion (IDS) qui analyse le trafic réseau en temps réel
+        et génère des alertes dans <code style="font-size:0.82rem; color:var(--accent);">/var/log/suricata/fast.log</code>.
+        Ces alertes sont ensuite lues par Fail2ban pour déclencher les bans.
+      </p>
+
+      <div class="cmd-block">
+        <code><span class="prompt">$ </span>sudo apt install suricata
+<span class="prompt">$ </span>sudo nano /etc/suricata/suricata.yaml
+<span class="prompt">$ </span>sudo systemctl restart suricata
+<span class="prompt">$ </span>sudo systemctl status suricata
+<span class="prompt">$ </span>tail -f /var/log/suricata/fast.log</code>
+      </div>
+
+      <div class="screenshot-placeholder">[ Capture — suricata_status ]</div>
+      <p class="screenshot-caption">Fig. 6 — sudo systemctl status suricata — service actif</p>
+
+      <div class="screenshot-placeholder">[ Capture — suricata_journal ]</div>
+      <p class="screenshot-caption">Fig. 7 — tail -f /var/log/suricata/fast.log — alertes en direct</p>
+    </div>
+
+    <!-- SECTION 4 — TESTS D'ATTAQUE -->
+    <div class="content-section">
+      <h2>4 — Tests d'attaque depuis Windows</h2>
+      <p>
+        Pour valider la chaîne de détection, trois types d'attaques sont lancés depuis la machine Windows
+        vers la VM Bastion. Trois terminaux sont ouverts simultanément pour observer les réactions en temps réel.
+      </p>
+
+      <div class="terminal-split">
+        <div class="terminal-pane pane-ufw">
+          <div class="pane-label">Terminal 1 — UFW</div>
+          <div class="pane-cmd">sudo ufw status</div>
+        </div>
+        <div class="terminal-pane pane-suricata">
+          <div class="pane-label">Terminal 2 — Suricata</div>
+          <div class="pane-cmd">tail -f fast.log</div>
+        </div>
+        <div class="terminal-pane pane-fail2ban">
+          <div class="pane-label">Terminal 3 — Fail2ban</div>
+          <div class="pane-cmd">fail2ban-client status</div>
+        </div>
+      </div>
+
+      <!-- Attaque 1 -->
+      <div class="attack-card" style="margin-top:1.25rem;">
+        <div class="attack-header">
+          <span class="attack-num">1</span>
+          <span class="attack-title">Scan de ports — Nmap</span>
+        </div>
+        <ul class="attack-chain">
+          <li>Lancement d'un scan Nmap depuis Windows sur l'IP de la VM Bastion</li>
+          <li><span class="badge-detect">Suricata</span> détecte le comportement de scan et génère une alerte dans fast.log</li>
+          <li><span class="badge-ban">Fail2ban</span> lit l'alerte via la jail suricata et bannit l'IP attaquante</li>
+        </ul>
+      </div>
+
+      <!-- Attaque 2 -->
+      <div class="attack-card">
+        <div class="attack-header">
+          <span class="attack-num">2</span>
+          <span class="attack-title">Brute force SSH — 5 tentatives ratées</span>
+        </div>
+        <ul class="attack-chain">
+          <li>5 tentatives de connexion SSH avec des mots de passe incorrects</li>
+          <li><span class="badge-ban">Fail2ban</span> (jail sshd) bannit l'IP après le 3ème échec (maxretry = 3)</li>
+          <li>Les tentatives suivantes sont bloquées directement par UFW — ban de 10 minutes</li>
+        </ul>
+      </div>
+
+      <!-- Attaque 3 -->
+      <div class="attack-card">
+        <div class="attack-header">
+          <span class="attack-num">3</span>
+          <span class="attack-title">Flood HTTP — rafraîchissements rapides</span>
+        </div>
+        <ul class="attack-chain">
+          <li>Rafraîchissements très rapides sur le port 80 de la VM Bastion</li>
+          <li><span class="badge-detect">Suricata</span> identifie le flood HTTP et génère une alerte dans fast.log</li>
+          <li>L'IP est transmise à Fail2ban via la jail suricata pour bannissement</li>
+        </ul>
+      </div>
+
+      <!-- Captures tests -->
+      <div class="screenshot-placeholder">[ Capture — nmap_attaque ]</div>
+      <p class="screenshot-caption">Fig. 8 — Scan Nmap lancé depuis Windows — résultats</p>
+
+      <div class="screenshot-placeholder">[ Capture — brute_force_ssh ]</div>
+      <p class="screenshot-caption">Fig. 9 — Tentatives SSH répétées — bannissement après 3 essais</p>
+
+      <div class="screenshot-placeholder">[ Capture — flood_http ]</div>
+      <p class="screenshot-caption">Fig. 10 — Flood HTTP détecté par Suricata dans fast.log</p>
+
+      <div class="screenshot-placeholder">[ Capture — ip_bannie ]</div>
+      <p class="screenshot-caption">Fig. 11 — IP attaquante bannie — confirmation dans fail2ban-client status</p>
+    </div>
+
+    <!-- COMPÉTENCES -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
       <ul class="skills-list">
-        <li>Administration Linux</li>
-        <li>Configuration de pare-feu (UFW)</li>
-        <li>Détection d'intrusion (IDS/IPS)</li>
-        <li>Suricata — règles et alertes</li>
-        <li>Fail2ban — jails et filtres</li>
-        <li>Analyse de logs</li>
-        <li>Sécurité réseau</li>
-        <li>Defense-in-depth</li>
+        <li>Gérer le patrimoine informatique</li>
+        <li>Répondre aux incidents</li>
+        <li>Configuration UFW — filtrage réseau Linux</li>
+        <li>Déploiement d'un IDS (Suricata)</li>
+        <li>Fail2ban — jails, filtres, actions</li>
+        <li>Analyse de logs en temps réel</li>
+        <li>Tests d'intrusion (scan, brute force, flood)</li>
+        <li>Défense en profondeur (defense-in-depth)</li>
       </ul>
-    </div>
-
-    <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
-      </div>
     </div>
 
   </main>
