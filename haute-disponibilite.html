@@ -3,11 +3,277 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TP Haute Disponibilité HD1 & HD2 — Abraham Emmanuel</title>
+  <title>TP Haute Disponibilité HD1 & HD2 — Seaboatonline — Abraham Emmanuel</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Command blocks ── */
+    .cmd-block {
+      background: rgba(10, 14, 20, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-top: 0.75rem;
+      overflow-x: auto;
+    }
+    .cmd-block code {
+      display: block;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.82rem;
+      color: #a5d6a7;
+      line-height: 1.75;
+      white-space: pre;
+    }
+    .cmd-block code .prompt {
+      color: #4fc3f7;
+      user-select: none;
+    }
+
+    /* ── Role badge inline ── */
+    .role-badge {
+      display: inline-block;
+      background: rgba(79, 195, 247, 0.1);
+      border: 1px solid rgba(79, 195, 247, 0.25);
+      border-radius: 6px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+    .role-badge.master {
+      background: rgba(239, 83, 80, 0.1);
+      border-color: rgba(239, 83, 80, 0.3);
+      color: #ef9a9a;
+    }
+    .role-badge.slave {
+      background: rgba(255, 167, 38, 0.1);
+      border-color: rgba(255, 167, 38, 0.3);
+      color: #ffb74d;
+    }
+    .role-badge.ok {
+      background: rgba(76, 175, 80, 0.1);
+      border-color: rgba(76, 175, 80, 0.3);
+      color: #81c784;
+    }
+
+    /* ── Part separator ── */
+    .part-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.5rem 0 0.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .part-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.35rem 1rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .part-badge.hd1 {
+      background: rgba(79, 195, 247, 0.12);
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      color: var(--accent);
+    }
+    .part-badge.hd2 {
+      background: rgba(239, 83, 80, 0.1);
+      border: 1px solid rgba(239, 83, 80, 0.3);
+      color: #ef9a9a;
+    }
+    .part-header h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+    }
+
+    /* ── Cluster diagram ── */
+    .cluster-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin: 1.25rem 0 0.5rem;
+      flex-wrap: wrap;
+    }
+    .cluster-node {
+      flex: 1;
+      min-width: 120px;
+      max-width: 180px;
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .cluster-node.active {
+      border-color: rgba(79, 195, 247, 0.4);
+      background: rgba(79, 195, 247, 0.06);
+    }
+    .cluster-node.standby {
+      border-color: rgba(255, 167, 38, 0.35);
+      background: rgba(255, 167, 38, 0.05);
+    }
+    .cluster-node.vip {
+      border-color: rgba(76, 175, 80, 0.4);
+      background: rgba(76, 175, 80, 0.06);
+      min-width: 100px;
+    }
+    .cluster-node .cn-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .cluster-node.active  .cn-label { color: var(--accent); }
+    .cluster-node.standby .cn-label { color: #ffb74d; }
+    .cluster-node.vip     .cn-label { color: #81c784; }
+    .cluster-node .cn-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .cluster-node .cn-ip {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: 'Courier New', monospace;
+      margin-top: 0.2rem;
+    }
+    .cluster-arrow {
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      padding: 0 0.6rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Screenshot helpers ── */
+    .screenshot-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 140px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: rgba(79, 195, 247, 0.03);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 1.25rem;
+    }
+    .screenshot-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── Result note ── */
+    .result-note {
+      background: rgba(76, 175, 80, 0.06);
+      border: 1px solid rgba(76, 175, 80, 0.25);
+      border-radius: 8px;
+      padding: 0.75rem 1.1rem;
+      margin-top: 1rem;
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+    }
+    .result-note strong { color: #81c784; }
+
+    /* ── Step list ── */
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0;
+    }
+    .step-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      padding: 0.4rem 0;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .step-list li:last-child { border-bottom: none; }
+    .step-list li::before {
+      content: '›';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    /* ── Test table ── */
+    .test-table-wrap {
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+    .test-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .test-table thead tr {
+      background: rgba(79, 195, 247, 0.07);
+      border-bottom: 1px solid rgba(79, 195, 247, 0.25);
+    }
+    .test-table th {
+      padding: 0.65rem 1rem;
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .test-table td {
+      padding: 0.65rem 1rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .test-table tr:last-child td { border-bottom: none; }
+    .test-table .action-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(79, 195, 247, 0.12);
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .badge-ok {
+      display: inline-block;
+      background: rgba(76, 175, 80, 0.12);
+      color: #81c784;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 4px;
+      padding: 0.1rem 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 680px) {
+      .cluster-diagram { flex-direction: column; align-items: stretch; }
+      .cluster-arrow   { transform: rotate(90deg); text-align: center; }
+    }
+  </style>
 </head>
 <body>
 
@@ -18,62 +284,377 @@
 
   <main class="page-container">
 
+    <!-- EN-TÊTE -->
     <div class="page-header">
       <div class="page-badge">Formation — BTS SIO SISR</div>
-      <h1>TP Haute Disponibilité HD1 & HD2</h1>
+      <h1>TP Haute Disponibilité HD1 & HD2 — Startup Seaboatonline</h1>
       <div class="page-meta">
-        <span>🔁 Infrastructure HA</span>
-        <span>🖥️ Virtualisation</span>
+        <span>🔁 Clustering HA</span>
+        <span>🖥️ Proxmox / Debian 12</span>
+        <span>🗄️ Réplication BDD</span>
       </div>
     </div>
 
+    <!-- FICHE INFO -->
     <div class="info-grid">
       <div class="info-card">
         <div class="label">Contexte</div>
-        <div class="value">Travaux pratiques réalisés en cours de formation BTS SIO SISR</div>
+        <div class="value">La startup Seaboatonline gère la location de bateaux en ligne. Le gérant M. Dupont/Boussard exige une disponibilité 24h/24 du site web et de la base de données — 2 VMs Debian hébergées sous Proxmox.</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Outils</div>
+        <div class="value">Debian 12 — Apache2 — Corosync — Pacemaker — MariaDB — Adminer</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
-      </div>
-      <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">Linux, load balancer, clustering, virtualisation</div>
+        <div class="value">2ème année BTS SIO SISR — 2025-2026</div>
       </div>
     </div>
 
+    <!-- ARCHITECTURE GLOBALE -->
     <div class="content-section">
-      <h2>Description</h2>
+      <h2>Architecture générale</h2>
       <p>
-        Mise en place d'une infrastructure à haute disponibilité (HA) visant à assurer la continuité de service
-        en cas de défaillance d'un composant. Le projet comprend la configuration d'un mécanisme de basculement
-        automatique (failover) et d'équilibrage de charge (load balancing).
+        Le projet se divise en deux volets complémentaires : <strong style="color:var(--text-primary)">HD1</strong> assure
+        la haute disponibilité du service web via un cluster Corosync / Pacemaker avec basculement automatique,
+        et <strong style="color:var(--text-primary)">HD2</strong> assure la continuité de la base de données MariaDB
+        par réplication Master / Slave entre les deux nœuds.
       </p>
-      <p>
-        L'objectif était de garantir une disponibilité maximale du service tout en répartissant la charge
-        entre plusieurs serveurs afin d'optimiser les performances.
-      </p>
+      <div class="cluster-diagram">
+        <div class="cluster-node active">
+          <div class="cn-label">Node 1 — Actif</div>
+          <div class="cn-name">BDD1 / Web1</div>
+          <div class="cn-ip">10.0.1.112</div>
+        </div>
+        <div class="cluster-arrow">⇄</div>
+        <div class="cluster-node vip">
+          <div class="cn-label">IP Virtuelle</div>
+          <div class="cn-name">VIP</div>
+          <div class="cn-ip">10.0.1.115</div>
+        </div>
+        <div class="cluster-arrow">⇄</div>
+        <div class="cluster-node standby">
+          <div class="cn-label">Node 2 — Secours</div>
+          <div class="cn-name">BDD2 / Web2</div>
+          <div class="cn-ip">10.0.1.113</div>
+        </div>
+      </div>
     </div>
 
+    <!-- ═══════════════════════ HD1 ═══════════════════════ -->
+    <div class="part-header">
+      <span class="part-badge hd1">HD1</span>
+      <h2>Haute disponibilité — Service web</h2>
+    </div>
+
+    <!-- SECTION 1 — APACHE2 -->
+    <div class="content-section">
+      <h2>1 — Installation Apache2 <span class="role-badge">Serveur web</span></h2>
+      <p>
+        Apache2 est installé sur Node1 (10.0.1.112) afin de servir le site web de Seaboatonline.
+        Le service est vérifié puis testé via navigateur avant la mise en cluster.
+      </p>
+
+      <div class="cmd-block">
+        <code><span class="prompt">$ </span>sudo apt install apache2 -y
+<span class="prompt">$ </span>systemctl status apache2</code>
+      </div>
+
+      <div class="result-note">
+        <strong>Test :</strong> accès à <code style="color:var(--accent);font-size:0.82rem;">http://10.0.1.112</code> → page par défaut Apache affichée ✅
+      </div>
+
+      <div class="screenshot-placeholder">[ Capture — apache_installe ]</div>
+      <p class="screenshot-caption">Fig. 1 — systemctl status apache2 — service actif sur Node1</p>
+
+      <div class="screenshot-placeholder">[ Capture — page_html_test ]</div>
+      <p class="screenshot-caption">Fig. 2 — Page web Apache accessible via http://10.0.1.112</p>
+    </div>
+
+    <!-- SECTION 2 — COROSYNC + PACEMAKER -->
+    <div class="content-section">
+      <h2>2 — Installation Corosync + Pacemaker <span class="role-badge">Cluster HA</span></h2>
+      <p>
+        Corosync gère la communication entre les nœuds du cluster (heartbeat) tandis que Pacemaker
+        orchestre le basculement des ressources. L'outil <code style="color:var(--accent);font-size:0.82rem;">crmsh</code>
+        permet de piloter le cluster en ligne de commande.
+      </p>
+
+      <div class="cmd-block">
+        <code><span class="prompt">$ </span>apt install corosync pacemaker crmsh -y
+<span class="prompt">$ </span>systemctl start corosync
+<span class="prompt">$ </span>systemctl start pacemaker
+<span class="prompt">$ </span>systemctl status corosync
+<span class="prompt">$ </span>systemctl status pacemaker
+<span class="prompt">$ </span>crm status</code>
+      </div>
+
+      <div class="screenshot-placeholder">[ Capture — corosync_status ]</div>
+      <p class="screenshot-caption">Fig. 3 — systemctl status corosync — service actif</p>
+
+      <div class="screenshot-placeholder">[ Capture — pacemaker_status ]</div>
+      <p class="screenshot-caption">Fig. 4 — systemctl status pacemaker — service actif</p>
+
+      <div class="screenshot-placeholder">[ Capture — crm_status ]</div>
+      <p class="screenshot-caption">Fig. 5 — crm status — état du cluster</p>
+    </div>
+
+    <!-- SECTION 3 — NODE2 -->
+    <div class="content-section">
+      <h2>3 — Configuration Node2 <span class="role-badge">Nœud secondaire</span></h2>
+      <p>
+        Node2 est obtenu par clonage de Node1 directement dans Proxmox. Une adresse IP statique distincte
+        est attribuée, puis la connectivité entre les deux nœuds est vérifiée par ping croisé.
+      </p>
+
+      <ul class="step-list">
+        <li>Clonage du Node1 dans l'interface Proxmox</li>
+        <li>Configuration IP statique Node2 : <code style="color:var(--accent);font-size:0.82rem;">10.0.1.113</code></li>
+        <li>ping 10.0.1.113 depuis Node1 ✅</li>
+        <li>ping 10.0.1.112 depuis Node2 ✅</li>
+      </ul>
+
+      <div class="screenshot-placeholder">[ Capture — clone_node2 ]</div>
+      <p class="screenshot-caption">Fig. 6 — Clonage du Node1 dans Proxmox</p>
+
+      <div class="screenshot-placeholder">[ Capture — ip_node2 ]</div>
+      <p class="screenshot-caption">Fig. 7 — Configuration IP statique 10.0.1.113 sur Node2</p>
+
+      <div class="screenshot-placeholder">[ Capture — ping_node1 ]</div>
+      <p class="screenshot-caption">Fig. 8 — ping 10.0.1.113 depuis Node1 — réponse OK</p>
+
+      <div class="screenshot-placeholder">[ Capture — ping_node2 ]</div>
+      <p class="screenshot-caption">Fig. 9 — ping 10.0.1.112 depuis Node2 — réponse OK</p>
+    </div>
+
+    <!-- SECTION 4 — STONITH -->
+    <div class="content-section">
+      <h2>4 — Désactivation STONITH <span class="role-badge">Cluster config</span></h2>
+      <p>
+        STONITH (Shoot The Other Node In The Head) est le mécanisme de fencing du cluster.
+        En environnement de test sans matériel dédié, il est désactivé pour permettre au cluster
+        de démarrer correctement.
+      </p>
+
+      <div class="cmd-block">
+        <code><span class="prompt">$ </span>crm_verify -L -V
+<span class="prompt">$ </span>crm configure property stonith-enabled=false
+<span class="prompt">$ </span>crm configure show</code>
+      </div>
+
+      <div class="result-note">
+        <strong>Résultat :</strong> <code style="color:var(--accent);font-size:0.82rem;">crm configure show</code> confirme
+        <code style="color:#a5d6a7;font-size:0.82rem;">stonith-enabled=false</code> ✅
+      </div>
+
+      <div class="screenshot-placeholder">[ Capture — crm_verify ]</div>
+      <p class="screenshot-caption">Fig. 10 — crm_verify -L -V — vérification configuration cluster</p>
+
+      <div class="screenshot-placeholder">[ Capture — stonith_disabled ]</div>
+      <p class="screenshot-caption">Fig. 11 — crm configure show — stonith-enabled=false confirmé</p>
+    </div>
+
+    <!-- SECTION 5 — IP VIRTUELLE + SERVICE WEB -->
+    <div class="content-section">
+      <h2>5 — IP Virtuelle et serviceWeb <span class="role-badge">Ressources HA</span></h2>
+      <p>
+        Deux ressources sont créées dans Pacemaker : <strong style="color:var(--text-primary)">ipvirtuelle</strong>
+        (adresse flottante 10.0.1.115) et <strong style="color:var(--text-primary)">serviceWeb</strong> (Apache2).
+        Elles sont regroupées pour garantir leur colocalisation sur le même nœud. En cas de panne,
+        Pacemaker bascule automatiquement l'ensemble sur le nœud survivant.
+      </p>
+
+      <ul class="step-list">
+        <li>Création ressource <strong>ipvirtuelle</strong> : intervals monitor 10 s, start 30 s, stop 40 s</li>
+        <li>crm status → <code style="color:#a5d6a7;font-size:0.82rem;">ipvirtuelle Started node1</code> ✅</li>
+        <li>Accès site via IP virtuelle <code style="color:var(--accent);font-size:0.82rem;">http://10.0.1.115</code> ✅</li>
+        <li>Test bascule — standby node1 → basculement sur Node2 ✅</li>
+        <li>Test bascule — extinction node1 → basculement sur Node2 ✅</li>
+        <li>Groupement ressources ipvirtuelle + serviceWeb sur le même nœud ✅</li>
+      </ul>
+
+      <div class="screenshot-placeholder">[ Capture — ip_virtuelle_config ]</div>
+      <p class="screenshot-caption">Fig. 12 — Création et configuration de la ressource ipvirtuelle dans crm</p>
+
+      <div class="screenshot-placeholder">[ Capture — crm_status_groupe ]</div>
+      <p class="screenshot-caption">Fig. 13 — crm status — groupe ipvirtuelle + serviceWeb démarré sur Node1</p>
+
+      <div class="screenshot-placeholder">[ Capture — test_bascule_standby ]</div>
+      <p class="screenshot-caption">Fig. 14 — Test bascule : node1 en standby → ressources migrées sur Node2</p>
+
+      <div class="screenshot-placeholder">[ Capture — test_bascule_extinction ]</div>
+      <p class="screenshot-caption">Fig. 15 — Test bascule : node1 éteint → basculement automatique sur Node2</p>
+    </div>
+
+    <!-- ═══════════════════════ HD2 ═══════════════════════ -->
+    <div class="part-header">
+      <span class="part-badge hd2">HD2</span>
+      <h2>Haute disponibilité — Base de données</h2>
+    </div>
+
+    <!-- SECTION 6 — MARIADB + ADMINER -->
+    <div class="content-section">
+      <h2>6 — Installation MariaDB + Adminer <span class="role-badge">BDD</span></h2>
+      <p>
+        MariaDB est installé sur les deux nœuds. Adminer (interface graphique légère en PHP) est
+        également déployé pour faciliter la visualisation et la gestion des bases de données.
+      </p>
+
+      <div class="cmd-block">
+        <code><span class="prompt">$ </span>sudo apt install mariadb-server -y
+<span class="prompt">$ </span>systemctl status mariadb</code>
+      </div>
+
+      <ul class="step-list">
+        <li>Installation de PHP et du fichier Adminer dans le répertoire web Apache</li>
+        <li>Accès à l'interface Adminer via navigateur ✅</li>
+      </ul>
+
+      <div class="screenshot-placeholder">[ Capture — mariadb_status ]</div>
+      <p class="screenshot-caption">Fig. 16 — systemctl status mariadb — service actif</p>
+
+      <div class="screenshot-placeholder">[ Capture — adminer_interface ]</div>
+      <p class="screenshot-caption">Fig. 17 — Interface graphique Adminer accessible via navigateur</p>
+    </div>
+
+    <!-- SECTION 7 — BDD SBONLINE -->
+    <div class="content-section">
+      <h2>7 — Base de données SBonline <span class="role-badge">MariaDB</span></h2>
+      <p>
+        Création de la base de données métier <strong style="color:var(--text-primary)">SBonline</strong>,
+        de la table <strong style="color:var(--text-primary)">bateau</strong> et de l'utilisateur applicatif dédié.
+      </p>
+
+      <div class="cmd-block">
+        <code><span class="prompt">MariaDB&gt; </span>CREATE DATABASE SBonline;
+<span class="prompt">MariaDB&gt; </span>USE SBonline;
+<span class="prompt">MariaDB&gt; </span>CREATE TABLE bateau (
+            id    INT AUTO_INCREMENT PRIMARY KEY,
+            marque VARCHAR(50),
+            type   VARCHAR(50)
+          );
+<span class="prompt">MariaDB&gt; </span>CREATE USER 'sbuser'@'%' IDENTIFIED BY 'motdepasse';
+<span class="prompt">MariaDB&gt; </span>GRANT ALL PRIVILEGES ON SBonline.* TO 'sbuser'@'%';
+<span class="prompt">MariaDB&gt; </span>FLUSH PRIVILEGES;</code>
+      </div>
+
+      <div class="screenshot-placeholder">[ Capture — bdd_creee ]</div>
+      <p class="screenshot-caption">Fig. 18 — Base de données SBonline créée dans MariaDB</p>
+
+      <div class="screenshot-placeholder">[ Capture — table_bateau ]</div>
+      <p class="screenshot-caption">Fig. 19 — Table bateau avec colonnes id, marque, type</p>
+
+      <div class="screenshot-placeholder">[ Capture — adminer_bdd ]</div>
+      <p class="screenshot-caption">Fig. 20 — BDD SBonline visible dans l'interface Adminer</p>
+    </div>
+
+    <!-- SECTION 8 — RÉPLICATION MASTER/SLAVE -->
+    <div class="content-section">
+      <h2>8 — Réplication Master / Slave <span class="role-badge master">Master</span> <span class="role-badge slave">Slave</span></h2>
+      <p>
+        BDD1 (Node1 — 10.0.1.112) est configurée en tant que <strong style="color:#ef9a9a">Master</strong>.
+        BDD2 (Node2 — 10.0.1.113) est configurée en tant que <strong style="color:#ffb74d">Slave</strong>.
+        Toute écriture sur le Master est automatiquement répliquée vers le Slave, assurant la continuité
+        des données en cas de bascule.
+      </p>
+
+      <ul class="step-list">
+        <li>Activer les logs binaires sur le Master (<code style="color:#a5d6a7;font-size:0.82rem;">log_bin</code> dans my.cnf)</li>
+        <li>Créer l'utilisateur de réplication sur le Master</li>
+        <li>Effectuer un dump de la base Master (<code style="color:#a5d6a7;font-size:0.82rem;">mysqldump</code>)</li>
+        <li>Importer le dump sur le Slave</li>
+        <li>Configurer le Slave : CHANGE MASTER TO (host, user, password, log file, position)</li>
+        <li>Démarrer la réplication : <code style="color:#a5d6a7;font-size:0.82rem;">START SLAVE;</code></li>
+      </ul>
+
+      <div class="cmd-block">
+        <code><span class="prompt">$ </span><span style="color:#616161"># Sur le Master — BDD1</span>
+<span class="prompt">MariaDB&gt; </span>CREATE USER 'repl'@'10.0.1.113' IDENTIFIED BY 'replpass';
+<span class="prompt">MariaDB&gt; </span>GRANT REPLICATION SLAVE ON *.* TO 'repl'@'10.0.1.113';
+<span class="prompt">MariaDB&gt; </span>SHOW MASTER STATUS;
+
+<span class="prompt">$ </span><span style="color:#616161"># Sur le Slave — BDD2</span>
+<span class="prompt">MariaDB&gt; </span>CHANGE MASTER TO
+            MASTER_HOST='10.0.1.112',
+            MASTER_USER='repl',
+            MASTER_PASSWORD='replpass',
+            MASTER_LOG_FILE='...',
+            MASTER_LOG_POS=...;
+<span class="prompt">MariaDB&gt; </span>START SLAVE;
+<span class="prompt">MariaDB&gt; </span>SHOW SLAVE STATUS\G</code>
+      </div>
+
+      <div class="screenshot-placeholder">[ Capture — replication_config ]</div>
+      <p class="screenshot-caption">Fig. 21 — Configuration de la réplication (CHANGE MASTER TO) sur le Slave</p>
+
+      <div class="screenshot-placeholder">[ Capture — replication_active ]</div>
+      <p class="screenshot-caption">Fig. 22 — SHOW SLAVE STATUS — Slave_IO_Running: Yes / Slave_SQL_Running: Yes</p>
+
+      <div class="screenshot-placeholder">[ Capture — test_replication ]</div>
+      <p class="screenshot-caption">Fig. 23 — Insertion sur le Master → données présentes sur le Slave</p>
+    </div>
+
+    <!-- SECTION 9 — TABLEAU DE TESTS -->
+    <div class="content-section">
+      <h2>9 — Tableau de tests <span class="role-badge ok">Validation</span></h2>
+      <p>
+        Quatre scénarios de test valident le bon fonctionnement de la haute disponibilité
+        et de la réplication en conditions réelles.
+      </p>
+
+      <div class="test-table-wrap">
+        <table class="test-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Action</th>
+              <th>Résultat attendu</th>
+              <th>État</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="action-num">1</span></td>
+              <td>Saisir un bateau sur le nœud maître</td>
+              <td>Entrée visible sur les 2 bases de données</td>
+              <td><span class="badge-ok">OK ✅</span></td>
+            </tr>
+            <tr>
+              <td><span class="action-num">2</span></td>
+              <td>Stopper le nœud maître</td>
+              <td>Bascule automatique sur Node2</td>
+              <td><span class="badge-ok">OK ✅</span></td>
+            </tr>
+            <tr>
+              <td><span class="action-num">3</span></td>
+              <td>Saisir un bateau sur le nœud secondaire</td>
+              <td>Réplication vers BDD2</td>
+              <td><span class="badge-ok">OK ✅</span></td>
+            </tr>
+            <tr>
+              <td><span class="action-num">4</span></td>
+              <td>Redémarrer le nœud maître</td>
+              <td>Rejoint le cluster — ressources restent sur Node2</td>
+              <td><span class="badge-ok">OK ✅</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- COMPÉTENCES -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
       <ul class="skills-list">
-        <li>Architecture HA</li>
-        <li>Load balancing</li>
-        <li>Failover automatique</li>
-        <li>Clustering</li>
-        <li>Administration Linux</li>
-        <li>Virtualisation</li>
-        <li>Supervision de services</li>
-        <li>Résilience d'infrastructure</li>
+        <li>Gérer le patrimoine informatique</li>
+        <li>Mettre à disposition un service informatique</li>
+        <li>Clustering Corosync / Pacemaker</li>
+        <li>Administration Apache2 sous Debian</li>
+        <li>Réplication MariaDB Master / Slave</li>
+        <li>Gestion d'IP virtuelle (VIP flottante)</li>
+        <li>Virtualisation sous Proxmox</li>
+        <li>Tests de bascule et validation HA</li>
       </ul>
-    </div>
-
-    <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
-      </div>
     </div>
 
   </main>
