@@ -3,11 +3,126 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rétablissement service — Linkt — Abraham Emmanuel</title>
+  <title>Rétablissement de service après intervention — Linkt — Abraham Emmanuel</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .step-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(79, 195, 247, 0.025);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(79, 195, 247, 0.12);
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .step-list li .step-label { padding-top: 0.05rem; line-height: 1.5; }
+    .step-tag {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 0.05rem 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-left: 0.45rem;
+      vertical-align: middle;
+    }
+    .step-tag.obl {
+      background: rgba(255, 167, 38, 0.12);
+      border: 1px solid rgba(255, 167, 38, 0.3);
+      color: #ffb74d;
+    }
+    .step-tag.sav {
+      background: rgba(239, 83, 80, 0.1);
+      border: 1px solid rgba(239, 83, 80, 0.3);
+      color: #ef9a9a;
+    }
+    .tool-list { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.75rem; }
+    .tool-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(76, 175, 80, 0.03);
+    }
+    .tool-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .tool-name { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+    .tool-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.75rem;
+    }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+    }
+    .skill-item::before { content: '✓'; color: #81c784; font-weight: 700; flex-shrink: 0; }
+    .screenshot-caption { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 0.4rem; margin-bottom: 0.5rem; }
+    .screenshot-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 140px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: rgba(79, 195, 247, 0.03);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 1.25rem;
+    }
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.75rem;
+    }
+    .check-card {
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      background: rgba(76, 175, 80, 0.04);
+    }
+    .check-card .chk-icon { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .check-card .chk-title { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem; }
+    .check-card .chk-detail { font-size: 0.8rem; color: var(--text-muted); }
+  </style>
 </head>
 <body>
 
@@ -20,45 +135,149 @@
 
     <div class="page-header">
       <div class="page-badge">Milieu professionnel — 2ème année</div>
-      <h1>Rétablissement service — Linkt</h1>
+      <h1>Rétablissement de service après intervention — Linkt</h1>
       <div class="page-meta">
         <span>🏢 Linkt</span>
         <span>⚡ Continuité de service</span>
+        <span>📅 Janvier–Février 2026</span>
       </div>
     </div>
 
     <div class="info-grid">
       <div class="info-card">
-        <div class="label">Contexte entreprise</div>
-        <div class="value">Stage 2ème année chez Linkt — opérateur télécom</div>
+        <div class="label">Contexte</div>
+        <div class="value">Vérification que le service est bien rétabli après une intervention SAV ou OBL chez un client</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
+        <div class="value">Janvier–Février 2026 — Stage 2ème année BTS SIO SISR</div>
       </div>
       <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">À compléter</div>
+        <div class="label">Compétences</div>
+        <div class="value">Gérer le patrimoine informatique — Répondre aux incidents</div>
       </div>
     </div>
 
+    <!-- ── Section 1 : Processus ── -->
     <div class="content-section">
-      <h2>Description</h2>
-      <p>À compléter</p>
+      <h2>Processus de vérification du rétablissement</h2>
+      <p>Après toute intervention SAV ou OBL, une vérification complète est effectuée à distance pour s'assurer que le service est pleinement rétabli avant de contacter le client et de clôturer le ticket.</p>
+
+      <ol class="step-list">
+        <li>
+          <span class="step-num">1</span>
+          <span class="step-label">
+            Notification de fin d'intervention reçue
+            <span class="step-tag sav">SAV</span>
+            <span class="step-tag obl">OBL</span>
+          </span>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <span class="step-label">Prise en main à distance du <strong>routeur client</strong> — vérification de la connexion à l'équipement</span>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <span class="step-label">Vérification de la <strong>connectivité internet</strong> — ping, état de la ligne, synchronisation</span>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <span class="step-label">Tests de ligne — mesure du débit, vérification de la stabilité de la connexion</span>
+        </li>
+        <li>
+          <span class="step-num">5</span>
+          <span class="step-label"><strong>Appel sortant au client</strong> pour confirmer le rétablissement et vérifier que tout fonctionne de son côté</span>
+        </li>
+        <li>
+          <span class="step-num">6</span>
+          <span class="step-label">Mise à jour et <strong>clôture du ticket</strong> dans Linkticket avec compte rendu complet</span>
+        </li>
+      </ol>
     </div>
 
+    <!-- ── Section 2 : Points de vérification ── -->
+    <div class="content-section">
+      <h2>Points de vérification</h2>
+
+      <div class="check-grid">
+        <div class="check-card">
+          <div class="chk-icon">🌐</div>
+          <div class="chk-title">Connectivité internet</div>
+          <div class="chk-detail">Vérification de l'accès internet depuis l'équipement client — ping et résolution DNS</div>
+        </div>
+        <div class="check-card">
+          <div class="chk-icon">📊</div>
+          <div class="chk-title">Tests de ligne</div>
+          <div class="chk-detail">Mesure du débit et vérification de la stabilité — absence de pertes paquets</div>
+        </div>
+        <div class="check-card">
+          <div class="chk-icon">🔧</div>
+          <div class="chk-title">État de l'équipement</div>
+          <div class="chk-detail">Vérification que le routeur est bien synchronisé et opérationnel</div>
+        </div>
+        <div class="check-card">
+          <div class="chk-icon">✅</div>
+          <div class="chk-title">Confirmation client</div>
+          <div class="chk-detail">Appel sortant pour valider avec le client que le service fonctionne normalement</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 3 : Outils ── -->
+    <div class="content-section">
+      <h2>Outils utilisés</h2>
+
+      <div class="tool-list">
+        <div class="tool-item">
+          <span class="tool-icon">🖥️</span>
+          <div>
+            <div class="tool-name">Accès à distance aux équipements</div>
+            <div class="tool-desc">Prise en main à distance du routeur client pour vérifier la connectivité et l'état de l'équipement</div>
+          </div>
+        </div>
+        <div class="tool-item">
+          <span class="tool-icon">🔬</span>
+          <div>
+            <div class="tool-name">Outils de tests de connectivité</div>
+            <div class="tool-desc">Tests de ligne, ping, mesure de débit pour valider la qualité du service rétabli</div>
+          </div>
+        </div>
+        <div class="tool-item">
+          <span class="tool-icon">🎫</span>
+          <div>
+            <div class="tool-name">Linkticket</div>
+            <div class="tool-desc">Mise à jour du ticket avec les résultats des tests et clôture après confirmation client</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 4 : Compétences ── -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
-      <ul class="skills-list">
-        <li>À compléter</li>
-      </ul>
+
+      <div class="skills-grid">
+        <div class="skill-item">Gérer le patrimoine informatique</div>
+        <div class="skill-item">Répondre aux incidents et demandes d'assistance</div>
+        <div class="skill-item">Tests de connectivité et diagnostic réseau</div>
+        <div class="skill-item">Administration à distance des équipements clients</div>
+        <div class="skill-item">Communication client — appels sortants de confirmation</div>
+        <div class="skill-item">Clôture et compte rendu d'incidents dans Linkticket</div>
+      </div>
     </div>
 
+    <!-- ── Captures ── -->
     <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
-      </div>
+      <h2>Captures d'écran</h2>
+
+      <div class="screenshot-placeholder">[ Capture — acces_distance_routeur ]</div>
+      <p class="screenshot-caption">Fig. 1 — Prise en main à distance du routeur client — vérification de la connexion</p>
+
+      <div class="screenshot-placeholder">[ Capture — test_connectivite_ligne ]</div>
+      <p class="screenshot-caption">Fig. 2 — Tests de ligne et vérification de la stabilité de la connexion</p>
+
+      <div class="screenshot-placeholder">[ Capture — cloture_ticket_retablissement ]</div>
+      <p class="screenshot-caption">Fig. 3 — Clôture du ticket Linkticket après confirmation du rétablissement avec le client</p>
     </div>
 
   </main>

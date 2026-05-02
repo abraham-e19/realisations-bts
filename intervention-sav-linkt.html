@@ -3,11 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Déclenchement intervention SAV — Linkt — Abraham Emmanuel</title>
+  <title>Déclenchement et suivi d'intervention SAV — Linkt — Abraham Emmanuel</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .step-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(79, 195, 247, 0.025);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(79, 195, 247, 0.12);
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .step-list li .step-label { padding-top: 0.05rem; line-height: 1.5; }
+    .step-tag {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 0.05rem 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-left: 0.45rem;
+      vertical-align: middle;
+    }
+    .step-tag.sav {
+      background: rgba(239, 83, 80, 0.1);
+      border: 1px solid rgba(239, 83, 80, 0.3);
+      color: #ef9a9a;
+    }
+    .tool-list { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.75rem; }
+    .tool-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(76, 175, 80, 0.03);
+    }
+    .tool-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .tool-name { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+    .tool-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.75rem;
+    }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+    }
+    .skill-item::before { content: '✓'; color: #81c784; font-weight: 700; flex-shrink: 0; }
+    .screenshot-caption { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 0.4rem; margin-bottom: 0.5rem; }
+    .screenshot-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 140px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: rgba(79, 195, 247, 0.03);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 1.25rem;
+    }
+    .info-box {
+      border: 1px solid rgba(239, 83, 80, 0.3);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      background: rgba(239, 83, 80, 0.04);
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-top: 0.75rem;
+      line-height: 1.6;
+    }
+    .info-box strong { color: #ef9a9a; }
+    .cause-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.75rem;
+    }
+    .cause-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      background: rgba(239, 83, 80, 0.03);
+    }
+    .cause-card .cc-icon { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .cause-card .cc-title { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem; }
+    .cause-card .cc-detail { font-size: 0.8rem; color: var(--text-muted); }
+  </style>
 </head>
 <body>
 
@@ -20,45 +141,149 @@
 
     <div class="page-header">
       <div class="page-badge">Milieu professionnel — 2ème année</div>
-      <h1>Déclenchement intervention SAV — Linkt</h1>
+      <h1>Déclenchement et suivi d'intervention SAV — Linkt</h1>
       <div class="page-meta">
         <span>🏢 Linkt</span>
-        <span>🔧 SAV</span>
+        <span>🔧 Intervention terrain</span>
+        <span>📅 Janvier–Février 2026</span>
       </div>
     </div>
 
     <div class="info-grid">
       <div class="info-card">
-        <div class="label">Contexte entreprise</div>
-        <div class="value">Stage 2ème année chez Linkt — opérateur télécom</div>
+        <div class="label">Contexte</div>
+        <div class="value">Diagnostic confirmant la nécessité d'une intervention physique sur site chez le client</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
+        <div class="value">Janvier–Février 2026 — Stage 2ème année BTS SIO SISR</div>
       </div>
       <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">À compléter</div>
+        <div class="label">Compétences</div>
+        <div class="value">Gérer le patrimoine informatique — Répondre aux incidents</div>
       </div>
     </div>
 
+    <!-- ── Section 1 : Définition SAV ── -->
     <div class="content-section">
-      <h2>Description</h2>
-      <p>À compléter</p>
+      <h2>Quand déclenche-t-on un SAV ?</h2>
+
+      <div class="info-box">
+        Une intervention <strong>SAV (Service Après-Vente)</strong> est déclenchée lorsque le diagnostic à distance ne permet pas de résoudre l'incident — panne matérielle, équipement hors service, câblage défectueux sur site. Un technicien est alors mandaté pour intervenir physiquement chez le client.
+      </div>
     </div>
 
+    <!-- ── Section 2 : Causes nécessitant un SAV ── -->
+    <div class="content-section">
+      <h2>Causes nécessitant une intervention terrain</h2>
+
+      <div class="cause-grid">
+        <div class="cause-card">
+          <div class="cc-icon">💥</div>
+          <div class="cc-title">Panne matérielle</div>
+          <div class="cc-detail">Routeur ou modem défectueux ne répondant plus aux commandes à distance</div>
+        </div>
+        <div class="cause-card">
+          <div class="cc-icon">🔌</div>
+          <div class="cc-title">Problème câblage</div>
+          <div class="cc-detail">Câble endommagé ou prise défectueuse sur le site client</div>
+        </div>
+        <div class="cause-card">
+          <div class="cc-icon">📦</div>
+          <div class="cc-title">Remplacement équipement</div>
+          <div class="cc-detail">Échange du matériel sur site après confirmation de la panne matérielle</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 3 : Processus ── -->
+    <div class="content-section">
+      <h2>Processus de gestion d'une intervention SAV</h2>
+      <p>Le déclenchement SAV suit un processus de coordination entre le support téléphonique et les techniciens terrain pour garantir un rétablissement rapide du service.</p>
+
+      <ol class="step-list">
+        <li>
+          <span class="step-num">1</span>
+          <span class="step-label">Diagnostic confirmant la nécessité d'une <strong>intervention physique</strong> sur site</span>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <span class="step-label">Déclenchement de l'intervention SAV depuis <strong>Linkticket</strong> <span class="step-tag sav">SAV</span></span>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <span class="step-label">Coordination avec le <strong>technicien intervenant sur site</strong> — transmission des informations sur l'incident</span>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <span class="step-label">Échange avec le technicien terrain sur la cause identifiée après intervention</span>
+        </li>
+        <li>
+          <span class="step-num">5</span>
+          <span class="step-label">Vérification du <strong>rétablissement du service</strong> après intervention terrain</span>
+        </li>
+        <li>
+          <span class="step-num">6</span>
+          <span class="step-label">Clôture du ticket et compte rendu client dans <strong>Linkticket</strong></span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ── Section 4 : Outils ── -->
+    <div class="content-section">
+      <h2>Outils utilisés</h2>
+
+      <div class="tool-list">
+        <div class="tool-item">
+          <span class="tool-icon">🎫</span>
+          <div>
+            <div class="tool-name">Linkticket</div>
+            <div class="tool-desc">Outil de ticketing interne — déclenchement SAV, suivi et clôture après rétablissement</div>
+          </div>
+        </div>
+        <div class="tool-item">
+          <span class="tool-icon">📞</span>
+          <div>
+            <div class="tool-name">Communication téléphonique avec les techniciens terrain</div>
+            <div class="tool-desc">Échanges directs pour transmettre le contexte de l'incident et confirmer le rétablissement</div>
+          </div>
+        </div>
+        <div class="tool-item">
+          <span class="tool-icon">💬</span>
+          <div>
+            <div class="tool-name">Communication client</div>
+            <div class="tool-desc">Suivi par téléphone et messagerie ticket — information sur l'avancement de l'intervention</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 5 : Compétences ── -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
-      <ul class="skills-list">
-        <li>À compléter</li>
-      </ul>
+
+      <div class="skills-grid">
+        <div class="skill-item">Gérer le patrimoine informatique</div>
+        <div class="skill-item">Répondre aux incidents et demandes d'assistance</div>
+        <div class="skill-item">Diagnostic et qualification des incidents terrain</div>
+        <div class="skill-item">Coordination avec les équipes d'intervention SAV</div>
+        <div class="skill-item">Communication client lors d'interventions planifiées</div>
+        <div class="skill-item">Vérification et validation du rétablissement de service</div>
+      </div>
     </div>
 
+    <!-- ── Captures ── -->
     <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
-      </div>
+      <h2>Captures d'écran</h2>
+
+      <div class="screenshot-placeholder">[ Capture — declenchement_sav_linkticket ]</div>
+      <p class="screenshot-caption">Fig. 1 — Déclenchement de l'intervention SAV dans Linkticket — détail du ticket et informations transmises</p>
+
+      <div class="screenshot-placeholder">[ Capture — suivi_intervention ]</div>
+      <p class="screenshot-caption">Fig. 2 — Suivi de l'intervention terrain — état d'avancement dans Linkticket</p>
+
+      <div class="screenshot-placeholder">[ Capture — cloture_ticket_sav ]</div>
+      <p class="screenshot-caption">Fig. 3 — Clôture du ticket après confirmation du rétablissement par le technicien terrain</p>
     </div>
 
   </main>

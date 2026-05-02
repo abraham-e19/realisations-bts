@@ -8,6 +8,115 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .step-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(79, 195, 247, 0.025);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(79, 195, 247, 0.12);
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .step-list li .step-label {
+      padding-top: 0.05rem;
+      line-height: 1.5;
+    }
+    .tool-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-top: 0.75rem;
+    }
+    .tool-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(76, 175, 80, 0.03);
+    }
+    .tool-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .tool-name { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+    .tool-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.75rem;
+    }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+    }
+    .skill-item::before { content: '✓'; color: #81c784; font-weight: 700; flex-shrink: 0; }
+    .screenshot-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .screenshot-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 140px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: rgba(79, 195, 247, 0.03);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 1.25rem;
+    }
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.75rem;
+    }
+    .config-card {
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      background: rgba(79, 195, 247, 0.04);
+    }
+    .config-card .cfg-icon { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .config-card .cfg-title { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem; }
+    .config-card .cfg-detail { font-size: 0.8rem; color: var(--text-muted); }
+  </style>
 </head>
 <body>
 
@@ -23,42 +132,142 @@
       <h1>Paramétrage DHCP — Linkt</h1>
       <div class="page-meta">
         <span>🏢 Linkt</span>
-        <span>🌐 Réseau</span>
+        <span>🌐 Administration réseau à distance</span>
+        <span>📅 Janvier–Février 2026</span>
       </div>
     </div>
 
     <div class="info-grid">
       <div class="info-card">
-        <div class="label">Contexte entreprise</div>
-        <div class="value">Stage 2ème année chez Linkt — opérateur télécom</div>
+        <div class="label">Contexte</div>
+        <div class="value">Configuration du service DHCP sur les équipements réseau clients à distance — Cisco, Keenetic, Zyxel</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
+        <div class="value">Janvier–Février 2026 — Stage 2ème année BTS SIO SISR</div>
       </div>
       <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">À compléter</div>
+        <div class="label">Compétences</div>
+        <div class="value">Gérer le patrimoine informatique — Répondre aux incidents</div>
       </div>
     </div>
 
+    <!-- ── Section 1 : Processus ── -->
     <div class="content-section">
-      <h2>Description</h2>
-      <p>À compléter</p>
+      <h2>Processus de paramétrage DHCP</h2>
+      <p>Le paramétrage DHCP se fait entièrement à distance sur l'équipement du client, en suivant une procédure structurée pour garantir l'attribution correcte des adresses IP sur le réseau local.</p>
+
+      <ol class="step-list">
+        <li>
+          <span class="step-num">1</span>
+          <span class="step-label">Connexion à distance sur l'équipement réseau du client</span>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <span class="step-label">Accès à l'interface d'administration du routeur (Cisco, Keenetic ou Zyxel)</span>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <span class="step-label">Configuration du serveur DHCP — définition de la <strong>plage d'adresses</strong>, de la <strong>passerelle par défaut</strong> et des <strong>serveurs DNS</strong></span>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <span class="step-label">Vérification que les postes clients obtiennent bien une adresse IP dynamique</span>
+        </li>
+        <li>
+          <span class="step-num">5</span>
+          <span class="step-label">Test de connectivité depuis les postes clients — accès internet et résolution DNS</span>
+        </li>
+        <li>
+          <span class="step-num">6</span>
+          <span class="step-label">Compte rendu et clôture du ticket dans <strong>Linkticket</strong></span>
+        </li>
+      </ol>
     </div>
 
+    <!-- ── Section 2 : Paramètres configurés ── -->
+    <div class="content-section">
+      <h2>Paramètres configurés</h2>
+
+      <div class="config-grid">
+        <div class="config-card">
+          <div class="cfg-icon">📋</div>
+          <div class="cfg-title">Plage d'adresses IP</div>
+          <div class="cfg-detail">Définition du pool DHCP adapté au réseau client (ex. 192.168.1.100–200)</div>
+        </div>
+        <div class="config-card">
+          <div class="cfg-icon">🔀</div>
+          <div class="cfg-title">Passerelle par défaut</div>
+          <div class="cfg-detail">Adresse IP du routeur transmise aux clients pour le routage sortant</div>
+        </div>
+        <div class="config-card">
+          <div class="cfg-icon">🔍</div>
+          <div class="cfg-title">Serveurs DNS</div>
+          <div class="cfg-detail">Serveurs DNS primaire et secondaire fournis aux clients DHCP</div>
+        </div>
+        <div class="config-card">
+          <div class="cfg-icon">⏱️</div>
+          <div class="cfg-title">Durée de bail</div>
+          <div class="cfg-detail">Lease time configuré selon les besoins du réseau client</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 3 : Outils ── -->
+    <div class="content-section">
+      <h2>Outils utilisés</h2>
+
+      <div class="tool-list">
+        <div class="tool-item">
+          <span class="tool-icon">🖥️</span>
+          <div>
+            <div class="tool-name">Accès à distance aux équipements</div>
+            <div class="tool-desc">Prise en main à distance du routeur client pour accès à l'interface d'administration</div>
+          </div>
+        </div>
+        <div class="tool-item">
+          <span class="tool-icon">🔧</span>
+          <div>
+            <div class="tool-name">Équipements Cisco / Keenetic / Zyxel</div>
+            <div class="tool-desc">Interfaces d'administration web ou CLI selon le modèle d'équipement client</div>
+          </div>
+        </div>
+        <div class="tool-item">
+          <span class="tool-icon">🎫</span>
+          <div>
+            <div class="tool-name">Linkticket</div>
+            <div class="tool-desc">Outil de ticketing interne — suivi de l'intervention et compte rendu client</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 4 : Compétences ── -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
-      <ul class="skills-list">
-        <li>À compléter</li>
-      </ul>
+
+      <div class="skills-grid">
+        <div class="skill-item">Gérer le patrimoine informatique</div>
+        <div class="skill-item">Répondre aux incidents et demandes d'assistance</div>
+        <div class="skill-item">Configuration de services réseau DHCP</div>
+        <div class="skill-item">Administration d'équipements Cisco, Keenetic, Zyxel</div>
+        <div class="skill-item">Diagnostic et vérification de connectivité</div>
+        <div class="skill-item">Compte rendu d'intervention dans un outil de ticketing</div>
+      </div>
     </div>
 
+    <!-- ── Captures ── -->
     <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
-      </div>
+      <h2>Captures d'écran</h2>
+
+      <div class="screenshot-placeholder">[ Capture — interface_dhcp_equipement ]</div>
+      <p class="screenshot-caption">Fig. 1 — Interface d'administration — configuration du serveur DHCP sur l'équipement client</p>
+
+      <div class="screenshot-placeholder">[ Capture — pool_adresses_ip ]</div>
+      <p class="screenshot-caption">Fig. 2 — Paramétrage de la plage d'adresses IP, passerelle et DNS</p>
+
+      <div class="screenshot-placeholder">[ Capture — verification_attribution_ip ]</div>
+      <p class="screenshot-caption">Fig. 3 — Vérification de l'attribution d'adresse IP sur un poste client</p>
     </div>
 
   </main>

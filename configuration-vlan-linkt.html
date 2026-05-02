@@ -8,6 +8,102 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .step-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(79, 195, 247, 0.025);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(79, 195, 247, 0.12);
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .step-list li .step-label { padding-top: 0.05rem; line-height: 1.5; }
+    .tool-list { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.75rem; }
+    .tool-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(76, 175, 80, 0.03);
+    }
+    .tool-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .tool-name { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+    .tool-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.75rem;
+    }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+    }
+    .skill-item::before { content: '✓'; color: #81c784; font-weight: 700; flex-shrink: 0; }
+    .screenshot-caption { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 0.4rem; margin-bottom: 0.5rem; }
+    .screenshot-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 140px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: rgba(79, 195, 247, 0.03);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 1.25rem;
+    }
+    .vlan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.75rem;
+    }
+    .vlan-card {
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+    }
+    .vlan-card .vc-icon { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .vlan-card .vc-title { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem; }
+    .vlan-card .vc-detail { font-size: 0.8rem; color: var(--text-muted); }
+    .vlan-card.data  { border: 1px solid rgba(79, 195, 247, 0.3); background: rgba(79, 195, 247, 0.04); }
+    .vlan-card.voip  { border: 1px solid rgba(255, 167, 38, 0.3);  background: rgba(255, 167, 38, 0.04);  }
+    .vlan-card.mgmt  { border: 1px solid rgba(76, 175, 80, 0.3);   background: rgba(76, 175, 80, 0.04);   }
+  </style>
 </head>
 <body>
 
@@ -23,42 +119,137 @@
       <h1>Configuration VLAN — Linkt</h1>
       <div class="page-meta">
         <span>🏢 Linkt</span>
-        <span>🔀 Réseau</span>
+        <span>🔀 Segmentation réseau</span>
+        <span>📅 Janvier–Février 2026</span>
       </div>
     </div>
 
     <div class="info-grid">
       <div class="info-card">
-        <div class="label">Contexte entreprise</div>
-        <div class="value">Stage 2ème année chez Linkt — opérateur télécom</div>
+        <div class="label">Contexte</div>
+        <div class="value">Segmentation réseau sur les équipements clients pour séparer les flux — Cisco, Keenetic, Zyxel</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
+        <div class="value">Janvier–Février 2026 — Stage 2ème année BTS SIO SISR</div>
       </div>
       <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">À compléter</div>
+        <div class="label">Compétences</div>
+        <div class="value">Gérer le patrimoine informatique — Répondre aux incidents</div>
       </div>
     </div>
 
+    <!-- ── Section 1 : Processus ── -->
     <div class="content-section">
-      <h2>Description</h2>
-      <p>À compléter</p>
+      <h2>Processus de configuration VLAN</h2>
+      <p>La configuration des VLANs est réalisée à distance sur les équipements réseau du client afin de segmenter les flux et garantir l'étanchéité entre les différents segments du réseau.</p>
+
+      <ol class="step-list">
+        <li>
+          <span class="step-num">1</span>
+          <span class="step-label">Connexion à distance sur l'équipement réseau du client</span>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <span class="step-label">Configuration des VLANs sur l'équipement — création et nommage des identifiants VLAN</span>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <span class="step-label">Affectation des <strong>ports aux bons VLANs</strong> (mode access ou trunk selon le port)</span>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <span class="step-label">Test de communication entre les machines du même VLAN</span>
+        </li>
+        <li>
+          <span class="step-num">5</span>
+          <span class="step-label">Vérification de l'<strong>étanchéité</strong> — absence de communication entre VLANs distincts</span>
+        </li>
+        <li>
+          <span class="step-num">6</span>
+          <span class="step-label">Compte rendu et clôture du ticket dans <strong>Linkticket</strong></span>
+        </li>
+      </ol>
     </div>
 
+    <!-- ── Section 2 : Types de VLANs configurés ── -->
+    <div class="content-section">
+      <h2>Types de VLANs configurés</h2>
+
+      <div class="vlan-grid">
+        <div class="vlan-card data">
+          <div class="vc-icon">💻</div>
+          <div class="vc-title">VLAN Data</div>
+          <div class="vc-detail">Trafic informatique des postes utilisateurs — réseau principal</div>
+        </div>
+        <div class="vlan-card voip">
+          <div class="vc-icon">📞</div>
+          <div class="vc-title">VLAN VoIP</div>
+          <div class="vc-detail">Trafic téléphonie IP isolé — QoS dédiée pour garantir la qualité des appels</div>
+        </div>
+        <div class="vlan-card mgmt">
+          <div class="vc-icon">🔒</div>
+          <div class="vc-title">VLAN Management</div>
+          <div class="vc-detail">Accès administration des équipements réseau — séparé du trafic utilisateur</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 3 : Outils ── -->
+    <div class="content-section">
+      <h2>Outils utilisés</h2>
+
+      <div class="tool-list">
+        <div class="tool-item">
+          <span class="tool-icon">🖥️</span>
+          <div>
+            <div class="tool-name">Accès à distance aux équipements</div>
+            <div class="tool-desc">Prise en main à distance pour accès à l'interface d'administration et la CLI de l'équipement</div>
+          </div>
+        </div>
+        <div class="tool-item">
+          <span class="tool-icon">🔧</span>
+          <div>
+            <div class="tool-name">Équipements Cisco / Keenetic / Zyxel</div>
+            <div class="tool-desc">Configuration des VLANs via interface web ou commandes CLI selon l'équipement</div>
+          </div>
+        </div>
+        <div class="tool-item">
+          <span class="tool-icon">🎫</span>
+          <div>
+            <div class="tool-name">Linkticket</div>
+            <div class="tool-desc">Outil de ticketing interne — suivi et compte rendu de l'intervention</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 4 : Compétences ── -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
-      <ul class="skills-list">
-        <li>À compléter</li>
-      </ul>
+
+      <div class="skills-grid">
+        <div class="skill-item">Gérer le patrimoine informatique</div>
+        <div class="skill-item">Répondre aux incidents et demandes d'assistance</div>
+        <div class="skill-item">Configuration et segmentation VLAN</div>
+        <div class="skill-item">Administration d'équipements Cisco, Keenetic, Zyxel</div>
+        <div class="skill-item">Vérification de l'étanchéité entre VLANs</div>
+        <div class="skill-item">Gestion des ports en mode access et trunk</div>
+      </div>
     </div>
 
+    <!-- ── Captures ── -->
     <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
-      </div>
+      <h2>Captures d'écran</h2>
+
+      <div class="screenshot-placeholder">[ Capture — configuration_vlan_equipement ]</div>
+      <p class="screenshot-caption">Fig. 1 — Interface d'administration — création et nommage des VLANs sur l'équipement client</p>
+
+      <div class="screenshot-placeholder">[ Capture — affectation_ports_vlan ]</div>
+      <p class="screenshot-caption">Fig. 2 — Affectation des ports aux VLANs — vue du tableau de configuration</p>
+
+      <div class="screenshot-placeholder">[ Capture — test_etancheite_vlan ]</div>
+      <p class="screenshot-caption">Fig. 3 — Test de communication inter-VLAN — vérification de l'étanchéité réseau</p>
     </div>
 
   </main>

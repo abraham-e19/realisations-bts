@@ -3,11 +3,117 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ouverture tickets OBL — Linkt — Abraham Emmanuel</title>
+  <title>Ouverture et suivi de tickets OBL — Linkt — Abraham Emmanuel</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .step-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(79, 195, 247, 0.025);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(79, 195, 247, 0.12);
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .step-list li .step-label { padding-top: 0.05rem; line-height: 1.5; }
+    .step-tag {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 0.05rem 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-left: 0.45rem;
+      vertical-align: middle;
+    }
+    .step-tag.obl {
+      background: rgba(255, 167, 38, 0.12);
+      border: 1px solid rgba(255, 167, 38, 0.3);
+      color: #ffb74d;
+    }
+    .tool-list { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.75rem; }
+    .tool-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(76, 175, 80, 0.03);
+    }
+    .tool-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .tool-name { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+    .tool-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.75rem;
+    }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+    }
+    .skill-item::before { content: '✓'; color: #81c784; font-weight: 700; flex-shrink: 0; }
+    .screenshot-caption { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 0.4rem; margin-bottom: 0.5rem; }
+    .screenshot-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 140px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: rgba(79, 195, 247, 0.03);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 1.25rem;
+    }
+    .info-box {
+      border: 1px solid rgba(255, 167, 38, 0.3);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      background: rgba(255, 167, 38, 0.05);
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-top: 0.75rem;
+      line-height: 1.6;
+    }
+    .info-box strong { color: #ffb74d; }
+  </style>
 </head>
 <body>
 
@@ -20,45 +126,126 @@
 
     <div class="page-header">
       <div class="page-badge">Milieu professionnel — 2ème année</div>
-      <h1>Ouverture tickets OBL — Linkt</h1>
+      <h1>Ouverture et suivi de tickets OBL — Linkt</h1>
       <div class="page-meta">
         <span>🏢 Linkt</span>
-        <span>🎫 Ticketing</span>
+        <span>🎫 Escalade opérateur</span>
+        <span>📅 Janvier–Février 2026</span>
       </div>
     </div>
 
     <div class="info-grid">
       <div class="info-card">
-        <div class="label">Contexte entreprise</div>
-        <div class="value">Stage 2ème année chez Linkt — opérateur télécom</div>
+        <div class="label">Contexte</div>
+        <div class="value">Incident identifié comme externe — ouverture d'un ticket OBL auprès de l'opérateur boucle locale</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
+        <div class="value">Janvier–Février 2026 — Stage 2ème année BTS SIO SISR</div>
       </div>
       <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">À compléter</div>
+        <div class="label">Compétences</div>
+        <div class="value">Gérer le patrimoine informatique — Répondre aux incidents</div>
       </div>
     </div>
 
+    <!-- ── Section 1 : Définition OBL ── -->
     <div class="content-section">
-      <h2>Description</h2>
-      <p>À compléter</p>
+      <h2>Qu'est-ce qu'un ticket OBL ?</h2>
+
+      <div class="info-box">
+        Un ticket <strong>OBL (Opérateur Boucle Locale)</strong> est ouvert lorsque le diagnostic de premier niveau confirme que l'incident ne provient pas de l'équipement client ni du réseau interne, mais d'une anomalie sur la ligne physique gérée par l'opérateur d'infrastructure. L'ouverture du ticket OBL déclenche une intervention de l'opérateur sur la ligne.
+      </div>
     </div>
 
+    <!-- ── Section 2 : Processus ── -->
+    <div class="content-section">
+      <h2>Processus de gestion d'un ticket OBL</h2>
+      <p>Le ticket OBL suit un flux précis depuis la qualification de l'incident jusqu'à sa clôture après rétablissement confirmé par l'opérateur.</p>
+
+      <ol class="step-list">
+        <li>
+          <span class="step-num">1</span>
+          <span class="step-label">Diagnostic de premier niveau — tests de connectivité, vérification équipement client</span>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <span class="step-label">Identification de l'incident comme <strong>externe</strong> — anomalie sur la boucle locale opérateur <span class="step-tag obl">OBL</span></span>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <span class="step-label">Ouverture du ticket OBL avec toutes les <strong>informations techniques</strong> nécessaires (identifiant ligne, tests effectués, symptômes)</span>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <span class="step-label">Suivi de l'avancement du ticket auprès de l'opérateur</span>
+        </li>
+        <li>
+          <span class="step-num">5</span>
+          <span class="step-label">Communication client régulière sur l'état du ticket et les délais de rétablissement</span>
+        </li>
+        <li>
+          <span class="step-num">6</span>
+          <span class="step-label">Clôture du ticket dans <strong>Linkticket</strong> après confirmation du rétablissement</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ── Section 3 : Outils ── -->
+    <div class="content-section">
+      <h2>Outils utilisés</h2>
+
+      <div class="tool-list">
+        <div class="tool-item">
+          <span class="tool-icon">🎫</span>
+          <div>
+            <div class="tool-name">Linkticket</div>
+            <div class="tool-desc">Outil de ticketing interne — création, suivi et clôture des tickets client et OBL</div>
+          </div>
+        </div>
+        <div class="tool-item">
+          <span class="tool-icon">🔬</span>
+          <div>
+            <div class="tool-name">Outils de diagnostic réseau</div>
+            <div class="tool-desc">Tests de ligne, analyse de connectivité permettant de qualifier l'incident comme externe</div>
+          </div>
+        </div>
+        <div class="tool-item">
+          <span class="tool-icon">💬</span>
+          <div>
+            <div class="tool-name">Communication client</div>
+            <div class="tool-desc">Suivi proactif par téléphone et messagerie ticket pour informer le client de l'avancement</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 4 : Compétences ── -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
-      <ul class="skills-list">
-        <li>À compléter</li>
-      </ul>
+
+      <div class="skills-grid">
+        <div class="skill-item">Gérer le patrimoine informatique</div>
+        <div class="skill-item">Répondre aux incidents et demandes d'assistance</div>
+        <div class="skill-item">Qualification et escalade d'incidents réseau</div>
+        <div class="skill-item">Rédaction de tickets techniques détaillés</div>
+        <div class="skill-item">Suivi et coordination avec les opérateurs tiers</div>
+        <div class="skill-item">Communication client lors d'incidents prolongés</div>
+      </div>
     </div>
 
+    <!-- ── Captures ── -->
     <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
-      </div>
+      <h2>Captures d'écran</h2>
+
+      <div class="screenshot-placeholder">[ Capture — ouverture_ticket_obl ]</div>
+      <p class="screenshot-caption">Fig. 1 — Formulaire d'ouverture de ticket OBL dans Linkticket — informations techniques renseignées</p>
+
+      <div class="screenshot-placeholder">[ Capture — suivi_ticket_obl ]</div>
+      <p class="screenshot-caption">Fig. 2 — Vue de suivi du ticket OBL — historique des échanges avec l'opérateur</p>
+
+      <div class="screenshot-placeholder">[ Capture — cloture_ticket ]</div>
+      <p class="screenshot-caption">Fig. 3 — Clôture du ticket client après confirmation du rétablissement</p>
     </div>
 
   </main>
