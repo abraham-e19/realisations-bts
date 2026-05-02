@@ -8,6 +8,218 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .fw-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      margin-top: 0.75rem;
+    }
+    .fw-table th {
+      background: rgba(79, 195, 247, 0.1);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .fw-table td {
+      padding: 0.6rem 0.8rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+    }
+    .fw-table tr:last-child td {
+      border-bottom: none;
+    }
+    .fw-table tr:hover td {
+      background: rgba(79, 195, 247, 0.04);
+      color: var(--text-primary);
+    }
+    .fw-table td.td-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+    }
+    .badge-allow {
+      display: inline-block;
+      background: rgba(76, 175, 80, 0.12);
+      color: #4caf50;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+    }
+    .badge-block {
+      display: inline-block;
+      background: rgba(239, 83, 80, 0.12);
+      color: #ef5350;
+      border: 1px solid rgba(239, 83, 80, 0.3);
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+    }
+    .rule-num {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .policy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+    .policy-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+    .policy-card .policy-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .policy-card .policy-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .policy-card.block .policy-value { color: #ef5350; }
+    .policy-card.allow .policy-value { color: #4caf50; }
+    .screenshot {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-top: 1.25rem;
+    }
+    .screenshot-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .screenshot-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 140px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: rgba(79, 195, 247, 0.03);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 1.25rem;
+    }
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 0.5rem;
+    }
+    .objectives-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.45rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .objectives-list li:last-child { border-bottom: none; }
+    .objectives-list li::before {
+      content: '›';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    .result-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .result-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .result-ok  { color: #4caf50; font-weight: 700; flex-shrink: 0; }
+    .result-fail { color: #ef5350; font-weight: 700; flex-shrink: 0; }
+    .alert-box {
+      background: rgba(239, 83, 80, 0.06);
+      border: 1px solid rgba(239, 83, 80, 0.25);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .alert-box .alert-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ef5350;
+      margin-bottom: 0.4rem;
+    }
+    .alert-box p { font-size: 0.88rem; color: var(--text-secondary); margin: 0 !important; }
+    .solution-box {
+      background: rgba(76, 175, 80, 0.06);
+      border: 1px solid rgba(76, 175, 80, 0.25);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+    .solution-box .solution-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4caf50;
+      margin-bottom: 0.4rem;
+    }
+    .solution-box p { font-size: 0.88rem; color: var(--text-secondary); margin: 0 !important; }
+    .service-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 0.5rem;
+    }
+    .service-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+    .service-list li:last-child { border-bottom: none; }
+    .service-port {
+      font-family: 'Courier New', monospace;
+      background: rgba(79, 195, 247, 0.1);
+      color: var(--accent);
+      border-radius: 4px;
+      padding: 0.1rem 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    @media (max-width: 600px) {
+      .policy-grid { grid-template-columns: 1fr; }
+      .fw-table { font-size: 0.7rem; }
+      .fw-table th, .fw-table td { padding: 0.45rem 0.5rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -20,56 +232,301 @@
 
     <div class="page-header">
       <div class="page-badge">Formation — BTS SIO SISR</div>
-      <h1>TP Pare-feu Windows Defender</h1>
+      <h1>TP Pare-feu Windows Defender — Société Novatice</h1>
       <div class="page-meta">
-        <span>🛡️ Sécurité Windows</span>
+        <span>🛡️ Sécurité</span>
         <span>🔥 Pare-feu</span>
+        <span>🖥️ Windows 11</span>
       </div>
     </div>
 
     <div class="info-grid">
       <div class="info-card">
         <div class="label">Contexte</div>
-        <div class="value">Travaux pratiques réalisés en cours de formation BTS SIO SISR</div>
+        <div class="value">Société Novatice — éditeur de logiciels pour médiathèques. M. Boussard (responsable) demande l'installation de services réseau et la configuration du pare-feu Windows Defender pour les contrôler.</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Outils</div>
+        <div class="value">Windows 11 — Windows Defender — PuTTY — IIS — OpenSSH</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
-      </div>
-      <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">Windows, Windows Defender Firewall, règles de filtrage entrant/sortant</div>
+        <div class="value">1ère année BTS SIO SISR — 2024-2025</div>
       </div>
     </div>
 
+    <!-- SECTION 1 — POLITIQUE PAR DÉFAUT -->
     <div class="content-section">
-      <h2>Description</h2>
+      <h2>1 — Politique par défaut</h2>
       <p>
-        Configuration du pare-feu Windows Defender avec fonctions avancées de sécurité (Windows Defender
-        Firewall with Advanced Security). Le TP couvre la création de règles de filtrage pour le trafic
-        entrant et sortant, la gestion des profils (domaine, privé, public) et l'application de politiques
-        de sécurité réseau via GPO.
+        Avant toute règle spécifique, Windows Defender Firewall applique une politique globale sur le trafic
+        entrant et sortant. La configuration retenue pour ce TP est la suivante :
       </p>
+      <div class="policy-grid">
+        <div class="policy-card block">
+          <div class="policy-label">Trafic entrant</div>
+          <div class="policy-value">🚫 Bloquer par défaut</div>
+        </div>
+        <div class="policy-card allow">
+          <div class="policy-label">Trafic sortant</div>
+          <div class="policy-value">✅ Autoriser par défaut</div>
+        </div>
+      </div>
+
+      <div class="screenshot-placeholder">[ Capture — politique_defaut ]</div>
+      <p class="screenshot-caption">Fig. 1 — Politique par défaut du pare-feu Windows Defender</p>
     </div>
 
+    <!-- SECTION 2 — TABLE DE FILTRAGE -->
+    <div class="content-section">
+      <h2>2 — Table de filtrage</h2>
+      <p>
+        Le tableau ci-dessous récapitule l'ensemble des règles appliquées sur le poste
+        <strong style="color: var(--text-primary);">192.168.0.75</strong>.
+      </p>
+      <div style="overflow-x: auto;">
+        <table class="fw-table">
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>IP source</th>
+              <th>Port src</th>
+              <th>IP dest</th>
+              <th>Port dest</th>
+              <th>Protocole</th>
+              <th>Action</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="rule-num">1</span></td>
+              <td>192.168.0.75</td>
+              <td>*</td>
+              <td>*</td>
+              <td>*</td>
+              <td>*</td>
+              <td><span class="badge-allow">Autoriser</span></td>
+              <td class="td-desc">Tout autoriser en sortie</td>
+            </tr>
+            <tr>
+              <td><span class="rule-num">2</span></td>
+              <td>*</td>
+              <td>*</td>
+              <td>192.168.0.75</td>
+              <td>*</td>
+              <td>*</td>
+              <td><span class="badge-block">Bloquer</span></td>
+              <td class="td-desc">Tout bloquer en entrée</td>
+            </tr>
+            <tr>
+              <td><span class="rule-num">3</span></td>
+              <td>*</td>
+              <td>*</td>
+              <td>192.168.0.75</td>
+              <td>1</td>
+              <td>ICMP</td>
+              <td><span class="badge-allow">Autoriser</span></td>
+              <td class="td-desc">Ping</td>
+            </tr>
+            <tr>
+              <td><span class="rule-num">4</span></td>
+              <td>*</td>
+              <td>*</td>
+              <td>192.168.0.75</td>
+              <td>22</td>
+              <td>TCP</td>
+              <td><span class="badge-allow">Autoriser</span></td>
+              <td class="td-desc">SSH</td>
+            </tr>
+            <tr>
+              <td><span class="rule-num">5</span></td>
+              <td>*</td>
+              <td>*</td>
+              <td>192.168.0.75</td>
+              <td>20-21</td>
+              <td>FTP</td>
+              <td><span class="badge-allow">Autoriser</span></td>
+              <td class="td-desc">FTP</td>
+            </tr>
+            <tr>
+              <td><span class="rule-num">6</span></td>
+              <td>*</td>
+              <td>*</td>
+              <td>192.168.0.75</td>
+              <td>3389</td>
+              <td>RDP</td>
+              <td><span class="badge-allow">Autoriser</span></td>
+              <td class="td-desc">Bureau à distance</td>
+            </tr>
+            <tr>
+              <td><span class="rule-num">7</span></td>
+              <td>*</td>
+              <td>*</td>
+              <td>192.168.0.75</td>
+              <td>80</td>
+              <td>HTTP</td>
+              <td><span class="badge-allow">Autoriser</span></td>
+              <td class="td-desc">Serveur web IIS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 3 — ICMP / PING -->
+    <div class="content-section">
+      <h2>3 — ICMP / Ping</h2>
+      <ul class="objectives-list">
+        <li>Protocole ICMP — pas de port spécifique (port 1 par convention)</li>
+        <li>Règle préexistante désactivée : <em>Diagnostics réseau de base – Demande d'écho ICMPv4</em></li>
+        <li>Activation de la règle → le ping fonctionne ✅</li>
+      </ul>
+
+      <div class="screenshot-placeholder">[ Capture — regle_icmp_desactivee ]</div>
+      <p class="screenshot-caption">Fig. 2 — Règle ICMP désactivée</p>
+
+      <div class="screenshot-placeholder">[ Capture — regle_icmp_activee ]</div>
+      <p class="screenshot-caption">Fig. 3 — Règle ICMP activée</p>
+
+      <div class="screenshot-placeholder">[ Capture — ping_fonctionne ]</div>
+      <p class="screenshot-caption">Fig. 4 — Ping fonctionnel après activation de la règle</p>
+    </div>
+
+    <!-- SECTION 4 — INSTALLATION DES SERVICES -->
+    <div class="content-section">
+      <h2>4 — Installation des services réseau</h2>
+      <ul class="service-list">
+        <li>
+          <span class="service-port">22 TCP</span>
+          <span><strong style="color: var(--text-primary);">SSH</strong> — OpenSSH Serveur installé via Fonctionnalités facultatives Windows</span>
+        </li>
+        <li>
+          <span class="service-port">3389 RDP</span>
+          <span><strong style="color: var(--text-primary);">Bureau à distance</strong> — activé via Paramètres → Système → Bureau à distance</span>
+        </li>
+        <li>
+          <span class="service-port">80 HTTP</span>
+          <span><strong style="color: var(--text-primary);">IIS</strong> — installé via Panneau de configuration → Activer ou désactiver des fonctionnalités Windows</span>
+        </li>
+        <li>
+          <span class="service-port">20-21 TCP</span>
+          <span><strong style="color: var(--text-primary);">FTP</strong> — Serveur FTP installé via la fonctionnalité IIS</span>
+        </li>
+      </ul>
+
+      <div class="screenshot-placeholder">[ Capture — ssh_installe ]</div>
+      <p class="screenshot-caption">Fig. 5 — OpenSSH Serveur installé</p>
+
+      <div class="screenshot-placeholder">[ Capture — bureau_distance ]</div>
+      <p class="screenshot-caption">Fig. 6 — Bureau à distance activé</p>
+
+      <div class="screenshot-placeholder">[ Capture — iis_installe ]</div>
+      <p class="screenshot-caption">Fig. 7 — IIS installé</p>
+    </div>
+
+    <!-- SECTION 5 — SSH -->
+    <div class="content-section">
+      <h2>5 — SSH</h2>
+      <ul class="objectives-list">
+        <li>Règle de pare-feu créée : port 22 TCP → Autoriser</li>
+        <li>Problème rencontré : service OpenSSH non démarré — démarrage manuel requis</li>
+        <li>Test PuTTY ✅</li>
+        <li>Test PowerShell ✅</li>
+      </ul>
+
+      <div class="screenshot-placeholder">[ Capture — regle_ssh_port ]</div>
+      <p class="screenshot-caption">Fig. 8 — Règle SSH — configuration du port</p>
+
+      <div class="screenshot-placeholder">[ Capture — regle_ssh_nom ]</div>
+      <p class="screenshot-caption">Fig. 9 — Règle SSH — nom de la règle</p>
+
+      <div class="screenshot-placeholder">[ Capture — service_ssh_demarre ]</div>
+      <p class="screenshot-caption">Fig. 10 — Service OpenSSH démarré</p>
+
+      <div class="screenshot-placeholder">[ Capture — ssh_putty_ok ]</div>
+      <p class="screenshot-caption">Fig. 11 — Connexion SSH réussie via PuTTY</p>
+
+      <div class="screenshot-placeholder">[ Capture — ssh_powershell_ok ]</div>
+      <p class="screenshot-caption">Fig. 12 — Connexion SSH réussie via PowerShell</p>
+    </div>
+
+    <!-- SECTION 6 — BUREAU À DISTANCE -->
+    <div class="content-section">
+      <h2>6 — Bureau à distance (RDP)</h2>
+      <ul class="objectives-list">
+        <li>Connexion RDP sur port 3389 → alerte certificat → connexion réussie ✅</li>
+        <li>Demande DSI : blocage temporaire → règle bloquée TCP + UDP → connexion refusée ❌</li>
+      </ul>
+
+      <div class="screenshot-placeholder">[ Capture — rdp_connecte ]</div>
+      <p class="screenshot-caption">Fig. 13 — Connexion RDP réussie</p>
+
+      <div class="screenshot-placeholder">[ Capture — rdp_regle_bloquee ]</div>
+      <p class="screenshot-caption">Fig. 14 — Règle RDP bloquée (TCP + UDP)</p>
+
+      <div class="screenshot-placeholder">[ Capture — rdp_echec ]</div>
+      <p class="screenshot-caption">Fig. 15 — Connexion RDP refusée après blocage</p>
+    </div>
+
+    <!-- SECTION 7 — IIS SERVEUR WEB -->
+    <div class="content-section">
+      <h2>7 — IIS Serveur Web</h2>
+      <ul class="objectives-list">
+        <li>Test navigateur → <code>http://192.168.0.75</code> → page d'accueil IIS ✅</li>
+        <li>Demande DSI : blocage → règle <em>World Wide Web (HTTP Traffic-In)</em> bloquée → page inaccessible ❌</li>
+      </ul>
+
+      <div class="screenshot-placeholder">[ Capture — iis_navigateur ]</div>
+      <p class="screenshot-caption">Fig. 16 — Page IIS accessible dans le navigateur</p>
+
+      <div class="screenshot-placeholder">[ Capture — iis_regle_bloquee ]</div>
+      <p class="screenshot-caption">Fig. 17 — Règle HTTP bloquée</p>
+
+      <div class="screenshot-placeholder">[ Capture — iis_echec ]</div>
+      <p class="screenshot-caption">Fig. 18 — Page IIS inaccessible après blocage</p>
+    </div>
+
+    <!-- SECTION 8 — FTP -->
+    <div class="content-section">
+      <h2>8 — FTP</h2>
+      <ul class="objectives-list">
+        <li>Site FTP créé dans la console IIS ✅</li>
+        <li>Test de connexion FTP → échec ❌ — ports 20-21 fermés</li>
+        <li>Règle créée pour les ports 20-21 → connexion toujours en échec ❌ — problème à investiguer</li>
+      </ul>
+
+      <div class="alert-box">
+        <div class="alert-label">Problème non résolu</div>
+        <p>
+          Malgré la création d'une règle autorisant les ports 20-21 en TCP, la connexion FTP reste en échec.
+          La cause exacte (mode passif, pare-feu applicatif, configuration du site IIS) est à investiguer.
+        </p>
+      </div>
+
+      <div class="screenshot-placeholder">[ Capture — ftp_site_iis ]</div>
+      <p class="screenshot-caption">Fig. 19 — Site FTP créé dans la console IIS</p>
+
+      <div class="screenshot-placeholder">[ Capture — ftp_echec ]</div>
+      <p class="screenshot-caption">Fig. 20 — Connexion FTP en échec (ports 20-21 fermés)</p>
+
+      <div class="screenshot-placeholder">[ Capture — ftp_regle_creee ]</div>
+      <p class="screenshot-caption">Fig. 21 — Règle pare-feu ports 20-21 créée</p>
+    </div>
+
+    <!-- COMPÉTENCES -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
       <ul class="skills-list">
+        <li>Gérer le patrimoine informatique</li>
+        <li>Répondre aux incidents</li>
+        <li>Règles de filtrage entrant / sortant</li>
+        <li>Protocoles SSH, RDP, HTTP, FTP, ICMP</li>
+        <li>Administration Windows 11</li>
         <li>Windows Defender Firewall</li>
-        <li>Règles entrantes / sortantes</li>
-        <li>Profils de pare-feu</li>
-        <li>Filtrage par port et protocole</li>
-        <li>Administration Windows</li>
-        <li>Sécurité réseau</li>
-        <li>GPO et déploiement de règles</li>
+        <li>IIS — OpenSSH — PuTTY</li>
+        <li>Diagnostic et résolution de problèmes réseau</li>
       </ul>
-    </div>
-
-    <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
-      </div>
     </div>
 
   </main>
