@@ -8,6 +8,105 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .screenshot {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-top: 1.25rem;
+    }
+    .screenshot-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 0.5rem;
+      counter-reset: step-counter;
+    }
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .steps-list li:last-child {
+      border-bottom: none;
+    }
+    .steps-list li::before {
+      content: counter(step-counter);
+      background: rgba(79, 195, 247, 0.12);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      min-width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-os-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+    .badge-windows {
+      background: rgba(79, 195, 247, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(79, 195, 247, 0.2);
+    }
+    .users-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
+    }
+    .users-table th {
+      background: rgba(79, 195, 247, 0.1);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.65rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .users-table td {
+      padding: 0.65rem 1rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+    .users-table td:first-child {
+      color: var(--accent);
+      font-weight: 600;
+      font-family: 'Courier New', monospace;
+    }
+    .users-table tr:last-child td {
+      border-bottom: none;
+    }
+    .users-table tr:hover td {
+      background: rgba(79, 195, 247, 0.04);
+      color: var(--text-primary);
+    }
+  </style>
 </head>
 <body>
 
@@ -20,60 +119,208 @@
 
     <div class="page-header">
       <div class="page-badge">Formation — BTS SIO SISR</div>
-      <h1>TP Active Directory</h1>
+      <h1>TP Active Directory — ESN Novatice / Actiprint SA</h1>
       <div class="page-meta">
-        <span>🗂️ Annuaire Windows</span>
-        <span>🖥️ Windows Server</span>
+        <span>🗂️ Active Directory</span>
+        <span>🖥️ Windows Server 2019</span>
+        <span>🏢 Actiprint SA</span>
       </div>
     </div>
 
     <div class="info-grid">
       <div class="info-card">
         <div class="label">Contexte</div>
-        <div class="value">Travaux pratiques réalisés en cours de formation BTS SIO SISR</div>
+        <div class="value">ESN Novatice (M. Ferrand) — mise en place d'un Active Directory pour le client Actiprint SA, immeuble Mach1, 3 bureaux, 6 utilisateurs.</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Outils</div>
+        <div class="value">Windows Server 2019, Active Directory Domain Services</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
-        <div class="value">À compléter</div>
-      </div>
-      <div class="info-card">
-        <div class="label">Environnement</div>
-        <div class="value">Windows Server, Active Directory Domain Services (AD DS), GPO</div>
+        <div class="value">2ème année BTS SIO SISR — 2025-2026</div>
       </div>
     </div>
 
+    <!-- CONTEXTE -->
     <div class="content-section">
-      <h2>Description</h2>
+      <h2>Contexte</h2>
       <p>
-        Déploiement et configuration d'un domaine Active Directory sous Windows Server.
-        Le TP couvre la promotion d'un serveur en contrôleur de domaine, la création du domaine,
-        la jonction de postes clients, la gestion des utilisateurs, groupes et unités d'organisation (OU).
+        L'ESN <strong style="color: var(--text-primary);">Novatice</strong>, dirigée par
+        <strong style="color: var(--text-primary);">M. Ferrand</strong>, nous confie la mise en place d'un Active Directory
+        pour son client <strong style="color: var(--accent);">Actiprint SA</strong>.
       </p>
       <p>
-        Des stratégies de groupe (GPO) ont également été configurées pour appliquer des paramètres
-        de sécurité et de configuration uniformes à l'ensemble des postes du domaine.
+        L'entreprise est hébergée dans l'immeuble <strong style="color: var(--text-primary);">Mach1</strong>,
+        composé de trois bureaux :
       </p>
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>Utilisateur</th>
+            <th>Bureau</th>
+            <th>Fonction</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pierre</td>
+            <td>Bureau 1 — Direction et Comptabilité</td>
+            <td>Directeur Général</td>
+          </tr>
+          <tr>
+            <td>Alain</td>
+            <td>Bureau 1 — Direction et Comptabilité</td>
+            <td>Direction commerciale</td>
+          </tr>
+          <tr>
+            <td>Maelys</td>
+            <td>Bureau 1 — Direction et Comptabilité</td>
+            <td>Comptabilité</td>
+          </tr>
+          <tr>
+            <td>John</td>
+            <td>Bureau 2 — Support et Logistique</td>
+            <td>Support</td>
+          </tr>
+          <tr>
+            <td>Albert</td>
+            <td>Bureau 2 — Support et Logistique</td>
+            <td>Logistique</td>
+          </tr>
+          <tr>
+            <td>Deborah</td>
+            <td>Bureau 3 — Vente</td>
+            <td>Vente</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
+    <!-- SECTION 1 -->
+    <div class="content-section">
+      <div class="section-os-badge badge-windows">Section 1</div>
+      <h2>Installation du rôle AD DS</h2>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        Installation du rôle <strong style="color: var(--text-primary);">Active Directory Domain Services</strong>
+        via le Gestionnaire de serveur Windows Server 2019.
+      </p>
+
+      <ol class="steps-list">
+        <li>Installation du rôle AD DS via le Gestionnaire de serveur</li>
+        <li>Sélection des fonctionnalités requises</li>
+      </ol>
+
+      <img src="images/ad/adds_role.png" alt="Installation du rôle AD DS" class="screenshot" />
+      <p class="screenshot-caption">Fig. 1 — Sélection du rôle Active Directory Domain Services dans le Gestionnaire de serveur</p>
+
+      <img src="images/ad/adds_installed.png" alt="Rôle AD DS installé" class="screenshot" />
+      <p class="screenshot-caption">Fig. 2 — Confirmation de l'installation du rôle AD DS</p>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="content-section">
+      <div class="section-os-badge badge-windows">Section 2</div>
+      <h2>Promotion en contrôleur de domaine</h2>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        Promotion du serveur en contrôleur de domaine principal avec création d'une nouvelle forêt
+        <strong style="color: var(--accent);">actiprint.sa</strong>.
+      </p>
+
+      <ol class="steps-list">
+        <li>Promotion du serveur en contrôleur de domaine principal</li>
+        <li>Création d'une nouvelle forêt avec le domaine <strong style="color: var(--text-primary);">actiprint.sa</strong></li>
+        <li>Configuration des options du contrôleur de domaine</li>
+        <li>Redémarrage et vérification</li>
+      </ol>
+
+      <img src="images/ad/promotion_controleur.png" alt="Promotion en contrôleur de domaine" class="screenshot" />
+      <p class="screenshot-caption">Fig. 3 — Assistant de promotion en contrôleur de domaine</p>
+
+      <img src="images/ad/nom_domaine.png" alt="Nom de domaine actiprint.sa" class="screenshot" />
+      <p class="screenshot-caption">Fig. 4 — Création de la nouvelle forêt avec le domaine actiprint.sa</p>
+
+      <img src="images/ad/options_controleur.png" alt="Options du contrôleur de domaine" class="screenshot" />
+      <p class="screenshot-caption">Fig. 5 — Configuration des options du contrôleur de domaine</p>
+
+      <img src="images/ad/installation_terminee.png" alt="Installation terminée" class="screenshot" />
+      <p class="screenshot-caption">Fig. 6 — Redémarrage et confirmation de la promotion</p>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="content-section">
+      <div class="section-os-badge badge-windows">Section 3</div>
+      <h2>Déclaration des ressources</h2>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        Création des Unités d'Organisation (UO), des comptes utilisateurs et des ordinateurs
+        dans la structure Active Directory d'<strong style="color: var(--accent);">actiprint.sa</strong>.
+      </p>
+
+      <ol class="steps-list">
+        <li>Création de l'UO <strong style="color: var(--text-primary);">Immeuble Mach1</strong> dans actiprint.sa</li>
+        <li>Création des sous-UO <strong style="color: var(--text-primary);">Bureau1</strong>, <strong style="color: var(--text-primary);">Bureau2</strong>, <strong style="color: var(--text-primary);">Bureau3</strong></li>
+        <li>Création des utilisateurs dans chaque bureau (Pierre, Alain, Maelys, John, Albert, Deborah)</li>
+        <li>Déclaration des ordinateurs dans les bonnes UO</li>
+      </ol>
+
+      <img src="images/ad/uo_immeuble.png" alt="UO Immeuble Mach1" class="screenshot" />
+      <p class="screenshot-caption">Fig. 7 — Création de l'Unité d'Organisation Immeuble Mach1</p>
+
+      <img src="images/ad/uo_bureaux.png" alt="Sous-UO Bureau1, Bureau2, Bureau3" class="screenshot" />
+      <p class="screenshot-caption">Fig. 8 — Création des sous-UO Bureau1, Bureau2 et Bureau3</p>
+
+      <img src="images/ad/utilisateurs_crees.png" alt="Utilisateurs créés dans les UO" class="screenshot" />
+      <p class="screenshot-caption">Fig. 9 — Comptes utilisateurs créés dans leurs bureaux respectifs</p>
+
+      <img src="images/ad/ordinateurs.png" alt="Ordinateurs déclarés dans les UO" class="screenshot" />
+      <p class="screenshot-caption">Fig. 10 — Ordinateurs déclarés dans les bonnes Unités d'Organisation</p>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="content-section">
+      <div class="section-os-badge badge-windows">Section 4</div>
+      <h2>Jonction du poste client et test de connexion</h2>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        Intégration du poste client au domaine <strong style="color: var(--accent);">actiprint.sa</strong>
+        et vérification de l'authentification avec les comptes du domaine.
+      </p>
+
+      <ol class="steps-list">
+        <li>Configuration du DNS client avec l'IP du serveur AD</li>
+        <li>Jonction du poste client au domaine actiprint.sa</li>
+        <li>Authentification avec le compte administrateur du domaine</li>
+        <li>Test de connexion avec un compte utilisateur du domaine</li>
+      </ol>
+
+      <img src="images/ad/dns_client.png" alt="Configuration DNS client" class="screenshot" />
+      <p class="screenshot-caption">Fig. 11 — Configuration du serveur DNS client pointant vers le contrôleur de domaine</p>
+
+      <img src="images/ad/ip_serveur.png" alt="IP du serveur AD" class="screenshot" />
+      <p class="screenshot-caption">Fig. 12 — Vérification de l'adresse IP du serveur Active Directory</p>
+
+      <img src="images/ad/jonction_domaine.png" alt="Jonction au domaine actiprint.sa" class="screenshot" />
+      <p class="screenshot-caption">Fig. 13 — Jonction du poste client au domaine actiprint.sa</p>
+
+      <img src="images/ad/auth_admin.png" alt="Authentification administrateur du domaine" class="screenshot" />
+      <p class="screenshot-caption">Fig. 14 — Authentification avec le compte administrateur du domaine</p>
+
+      <img src="images/ad/connexion_utilisateur.png" alt="Test connexion utilisateur du domaine" class="screenshot" />
+      <p class="screenshot-caption">Fig. 15 — Test de connexion avec un compte utilisateur du domaine</p>
+    </div>
+
+    <!-- COMPÉTENCES -->
     <div class="skills-section">
       <h2>Compétences mobilisées</h2>
       <ul class="skills-list">
-        <li>Active Directory (AD DS)</li>
-        <li>Windows Server</li>
-        <li>Gestion des GPO</li>
-        <li>Création d'OUs et groupes</li>
-        <li>Jonction au domaine</li>
-        <li>Gestion des comptes utilisateurs</li>
-        <li>Administration Windows</li>
-        <li>Contrôleur de domaine</li>
+        <li>Gérer le patrimoine informatique</li>
+        <li>Mettre à disposition un service informatique</li>
+        <li>Installation et configuration d'Active Directory Domain Services</li>
+        <li>Promotion d'un serveur en contrôleur de domaine</li>
+        <li>Création d'Unités d'Organisation (UO)</li>
+        <li>Gestion des comptes utilisateurs et ordinateurs</li>
+        <li>Jonction de postes clients au domaine</li>
+        <li>Administration Windows Server 2019</li>
       </ul>
-    </div>
-
-    <div class="content-section">
-      <h2>Documentation</h2>
-      <div class="doc-placeholder">
-        À compléter
-      </div>
     </div>
 
   </main>
