@@ -58,6 +58,50 @@
       border: 1px solid rgba(255, 167, 38, 0.3);
       color: #ffb74d;
     }
+    .step-tag.ok {
+      background: rgba(76, 175, 80, 0.12);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      color: #81c784;
+    }
+    .result-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .result-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(76, 175, 80, 0.03);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .result-check { color: #81c784; font-size: 1rem; flex-shrink: 0; }
+    .apport-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .apport-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .apport-list li::before { content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
     .tool-list { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.75rem; }
     .tool-item {
       display: flex;
@@ -88,31 +132,6 @@
       color: var(--text-secondary);
     }
     .skill-item::before { content: '✓'; color: #81c784; font-weight: 700; flex-shrink: 0; }
-    .screenshot-caption { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 0.4rem; margin-bottom: 0.5rem; }
-    .screenshot-placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      min-height: 140px;
-      border-radius: 8px;
-      border: 1px dashed var(--border);
-      background: rgba(79, 195, 247, 0.03);
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      margin-top: 1.25rem;
-    }
-    .info-box {
-      border: 1px solid rgba(255, 167, 38, 0.3);
-      border-radius: 8px;
-      padding: 1rem 1.2rem;
-      background: rgba(255, 167, 38, 0.05);
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      margin-top: 0.75rem;
-      line-height: 1.6;
-    }
-    .info-box strong { color: #ffb74d; }
   </style>
 </head>
 <body>
@@ -137,7 +156,7 @@
     <div class="info-grid">
       <div class="info-card">
         <div class="label">Contexte</div>
-        <div class="value">Incident identifié comme externe — ouverture d'un ticket OBL auprès de l'opérateur boucle locale</div>
+        <div class="value">Incidents réseau clients (coupures Internet, dysfonctionnements ADSL/VDSL/Fibre) — ouverture ticket OBL quand l'incident venait de l'opérateur de boucle locale</div>
       </div>
       <div class="info-card">
         <div class="label">Période</div>
@@ -147,51 +166,74 @@
         <div class="label">Compétences</div>
         <div class="value">Gérer le patrimoine informatique — Répondre aux incidents</div>
       </div>
-    </div>
-
-    <!-- ── Section 1 : Définition OBL ── -->
-    <div class="content-section">
-      <h2>Qu'est-ce qu'un ticket OBL ?</h2>
-
-      <div class="info-box">
-        Un ticket <strong>OBL (Opérateur Boucle Locale)</strong> est ouvert lorsque le diagnostic de premier niveau confirme que l'incident ne provient pas de l'équipement client ni du réseau interne, mais d'une anomalie sur la ligne physique gérée par l'opérateur d'infrastructure. L'ouverture du ticket OBL déclenche une intervention de l'opérateur sur la ligne.
+      <div class="info-card">
+        <div class="label">Outils</div>
+        <div class="value">Linkticket — Outils de diagnostic opérateurs (SFR, Covage, Bouygues)</div>
       </div>
     </div>
 
-    <!-- ── Section 2 : Processus ── -->
+    <!-- ── Section 1 : Processus ── -->
     <div class="content-section">
-      <h2>Processus de gestion d'un ticket OBL</h2>
-      <p>Le ticket OBL suit un flux précis depuis la qualification de l'incident jusqu'à sa clôture après rétablissement confirmé par l'opérateur.</p>
+      <h2>Section 1 — Processus suivi</h2>
 
       <ol class="step-list">
         <li>
           <span class="step-num">1</span>
-          <span class="step-label">Diagnostic de premier niveau — tests de connectivité, vérification équipement client</span>
+          <span class="step-label"><strong>Analyse du ticket client</strong> — compréhension du problème, identification du service impacté</span>
         </li>
         <li>
           <span class="step-num">2</span>
-          <span class="step-label">Identification de l'incident comme <strong>externe</strong> — anomalie sur la boucle locale opérateur <span class="step-tag obl">OBL</span></span>
+          <span class="step-label"><strong>Diagnostic</strong> — vérification état de la ligne (UP/DOWN), utilisation outils opérateurs (SFR, Covage, Bouygues), tests de connectivité</span>
         </li>
         <li>
           <span class="step-num">3</span>
-          <span class="step-label">Ouverture du ticket OBL avec toutes les <strong>informations techniques</strong> nécessaires (identifiant ligne, tests effectués, symptômes)</span>
+          <span class="step-label"><strong>Identification de l'origine</strong> — si diagnostic NOK côté opérateur → problème externe → ticket OBL <span class="step-tag obl">OBL</span> / si OK → poursuite diagnostic côté équipement <span class="step-tag ok">OK</span></span>
         </li>
         <li>
           <span class="step-num">4</span>
-          <span class="step-label">Suivi de l'avancement du ticket auprès de l'opérateur</span>
+          <span class="step-label"><strong>Ouverture ticket OBL</strong> — transmission informations techniques (résultats diagnostic, description problème, coordonnées site), création ticket auprès de l'opérateur</span>
         </li>
         <li>
           <span class="step-num">5</span>
-          <span class="step-label">Communication client régulière sur l'état du ticket et les délais de rétablissement</span>
-        </li>
-        <li>
-          <span class="step-num">6</span>
-          <span class="step-label">Clôture du ticket dans <strong>Linkticket</strong> après confirmation du rétablissement</span>
+          <span class="step-label"><strong>Suivi</strong> — communication client, mise à jour ticket interne, relance opérateur si nécessaire</span>
         </li>
       </ol>
     </div>
 
-    <!-- ── Section 3 : Outils ── -->
+    <!-- ── Section 2 : Résultats ── -->
+    <div class="content-section">
+      <h2>Section 2 — Résultats</h2>
+
+      <ul class="result-list">
+        <li><span class="result-check">✅</span> Incidents opérateur pris en charge et traités</li>
+        <li><span class="result-check">✅</span> Service rétabli après intervention opérateur</li>
+        <li><span class="result-check">✅</span> Client informé à chaque étape</li>
+      </ul>
+    </div>
+
+    <!-- ── Section 3 : Apports ── -->
+    <div class="content-section">
+      <h2>Section 3 — Ce que cette tâche m'a apporté</h2>
+
+      <ul class="apport-list">
+        <li>Savoir analyser un incident et identifier son origine</li>
+        <li>Utiliser des outils opérateurs professionnels</li>
+        <li>Faire la différence entre incident client et incident opérateur</li>
+        <li>Travailler en environnement télécom réel</li>
+      </ul>
+    </div>
+
+    <!-- ── Compétences ── -->
+    <div class="skills-section">
+      <h2>Compétences mobilisées</h2>
+
+      <div class="skills-grid">
+        <div class="skill-item">Gérer le patrimoine informatique</div>
+        <div class="skill-item">Répondre aux incidents</div>
+      </div>
+    </div>
+
+    <!-- ── Outils ── -->
     <div class="content-section">
       <h2>Outils utilisés</h2>
 
@@ -200,52 +242,17 @@
           <span class="tool-icon">🎫</span>
           <div>
             <div class="tool-name">Linkticket</div>
-            <div class="tool-desc">Outil de ticketing interne — création, suivi et clôture des tickets client et OBL</div>
+            <div class="tool-desc">Outil de ticketing interne — création, suivi et mise à jour des tickets client et OBL</div>
           </div>
         </div>
         <div class="tool-item">
           <span class="tool-icon">🔬</span>
           <div>
-            <div class="tool-name">Outils de diagnostic réseau</div>
-            <div class="tool-desc">Tests de ligne, analyse de connectivité permettant de qualifier l'incident comme externe</div>
-          </div>
-        </div>
-        <div class="tool-item">
-          <span class="tool-icon">💬</span>
-          <div>
-            <div class="tool-name">Communication client</div>
-            <div class="tool-desc">Suivi proactif par téléphone et messagerie ticket pour informer le client de l'avancement</div>
+            <div class="tool-name">Outils de diagnostic opérateurs</div>
+            <div class="tool-desc">Portails SFR, Covage, Bouygues — vérification état de ligne, tests de connectivité, qualification de l'incident</div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- ── Section 4 : Compétences ── -->
-    <div class="skills-section">
-      <h2>Compétences mobilisées</h2>
-
-      <div class="skills-grid">
-        <div class="skill-item">Gérer le patrimoine informatique</div>
-        <div class="skill-item">Répondre aux incidents et demandes d'assistance</div>
-        <div class="skill-item">Qualification et escalade d'incidents réseau</div>
-        <div class="skill-item">Rédaction de tickets techniques détaillés</div>
-        <div class="skill-item">Suivi et coordination avec les opérateurs tiers</div>
-        <div class="skill-item">Communication client lors d'incidents prolongés</div>
-      </div>
-    </div>
-
-    <!-- ── Captures ── -->
-    <div class="content-section">
-      <h2>Captures d'écran</h2>
-
-      <div class="screenshot-placeholder">[ Capture — ouverture_ticket_obl ]</div>
-      <p class="screenshot-caption">Fig. 1 — Formulaire d'ouverture de ticket OBL dans Linkticket — informations techniques renseignées</p>
-
-      <div class="screenshot-placeholder">[ Capture — suivi_ticket_obl ]</div>
-      <p class="screenshot-caption">Fig. 2 — Vue de suivi du ticket OBL — historique des échanges avec l'opérateur</p>
-
-      <div class="screenshot-placeholder">[ Capture — cloture_ticket ]</div>
-      <p class="screenshot-caption">Fig. 3 — Clôture du ticket client après confirmation du rétablissement</p>
     </div>
 
   </main>
