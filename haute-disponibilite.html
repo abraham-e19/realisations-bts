@@ -158,6 +158,13 @@
     }
 
     /* ── Screenshot helpers ── */
+    .screenshot {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-top: 1.25rem;
+    }
     .screenshot-placeholder {
       display: flex;
       align-items: center;
@@ -364,10 +371,10 @@
         <strong>Test :</strong> accès à <code style="color:var(--accent);font-size:0.82rem;">http://10.0.1.112</code> → page par défaut Apache affichée ✅
       </div>
 
-      <div class="screenshot-placeholder">[ Capture — apache_installe ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/apache_status.png" alt="systemctl status apache2 — service actif sur Node1">
       <p class="screenshot-caption">Fig. 1 — systemctl status apache2 — service actif sur Node1</p>
 
-      <div class="screenshot-placeholder">[ Capture — page_html_test ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/apache_web.png" alt="Page web Apache accessible via http://10.0.1.112">
       <p class="screenshot-caption">Fig. 2 — Page web Apache accessible via http://10.0.1.112</p>
     </div>
 
@@ -389,13 +396,13 @@
 <span class="prompt">$ </span>crm status</code>
       </div>
 
-      <div class="screenshot-placeholder">[ Capture — corosync_status ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/corosync_status.png" alt="systemctl status corosync — service actif">
       <p class="screenshot-caption">Fig. 3 — systemctl status corosync — service actif</p>
 
-      <div class="screenshot-placeholder">[ Capture — pacemaker_status ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/pacemaker_status.png" alt="systemctl status pacemaker — service actif">
       <p class="screenshot-caption">Fig. 4 — systemctl status pacemaker — service actif</p>
 
-      <div class="screenshot-placeholder">[ Capture — crm_status ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/crm_status.png" alt="crm status — état du cluster">
       <p class="screenshot-caption">Fig. 5 — crm status — état du cluster</p>
     </div>
 
@@ -414,16 +421,16 @@
         <li>ping 10.0.1.112 depuis Node2 ✅</li>
       </ul>
 
-      <div class="screenshot-placeholder">[ Capture — clone_node2 ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/clone_node2.png" alt="Clonage du Node1 dans Proxmox">
       <p class="screenshot-caption">Fig. 6 — Clonage du Node1 dans Proxmox</p>
 
-      <div class="screenshot-placeholder">[ Capture — ip_node2 ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/ip-node2.png" alt="Configuration IP statique 10.0.1.113 sur Node2">
       <p class="screenshot-caption">Fig. 7 — Configuration IP statique 10.0.1.113 sur Node2</p>
 
-      <div class="screenshot-placeholder">[ Capture — ping_node1 ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/ping_node1.png" alt="ping 10.0.1.113 depuis Node1 — réponse OK">
       <p class="screenshot-caption">Fig. 8 — ping 10.0.1.113 depuis Node1 — réponse OK</p>
 
-      <div class="screenshot-placeholder">[ Capture — ping_node2 ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/ping_node2.png" alt="ping 10.0.1.112 depuis Node2 — réponse OK">
       <p class="screenshot-caption">Fig. 9 — ping 10.0.1.112 depuis Node2 — réponse OK</p>
     </div>
 
@@ -447,7 +454,7 @@
         <code style="color:#a5d6a7;font-size:0.82rem;">stonith-enabled=false</code> ✅
       </div>
 
-      <div class="screenshot-placeholder">[ Capture — crm_verify ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/crm_verify.png" alt="crm_verify -L -V — vérification configuration cluster">
       <p class="screenshot-caption">Fig. 10 — crm_verify -L -V — vérification configuration cluster</p>
 
       <div class="screenshot-placeholder">[ Capture — stonith_disabled ]</div>
@@ -473,16 +480,16 @@
         <li>Groupement ressources ipvirtuelle + serviceWeb sur le même nœud ✅</li>
       </ul>
 
-      <div class="screenshot-placeholder">[ Capture — ip_virtuelle_config ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/ip_virtuelle.png" alt="Création et configuration de la ressource ipvirtuelle dans crm">
       <p class="screenshot-caption">Fig. 12 — Création et configuration de la ressource ipvirtuelle dans crm</p>
 
-      <div class="screenshot-placeholder">[ Capture — crm_status_groupe ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/crm_node1.png" alt="crm status — groupe ipvirtuelle + serviceWeb démarré sur Node1">
       <p class="screenshot-caption">Fig. 13 — crm status — groupe ipvirtuelle + serviceWeb démarré sur Node1</p>
 
       <div class="screenshot-placeholder">[ Capture — test_bascule_standby ]</div>
       <p class="screenshot-caption">Fig. 14 — Test bascule : node1 en standby → ressources migrées sur Node2</p>
 
-      <div class="screenshot-placeholder">[ Capture — test_bascule_extinction ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/test_bascule_extinction.png" alt="Test bascule : node1 éteint — basculement automatique sur Node2">
       <p class="screenshot-caption">Fig. 15 — Test bascule : node1 éteint → basculement automatique sur Node2</p>
     </div>
 
@@ -510,7 +517,7 @@
         <li>Accès à l'interface Adminer via navigateur ✅</li>
       </ul>
 
-      <div class="screenshot-placeholder">[ Capture — mariadb_status ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/mariadb_status.png" alt="systemctl status mariadb — service actif">
       <p class="screenshot-caption">Fig. 16 — systemctl status mariadb — service actif</p>
 
       <div class="screenshot-placeholder">[ Capture — adminer_interface ]</div>
@@ -587,7 +594,7 @@
       <div class="screenshot-placeholder">[ Capture — replication_config ]</div>
       <p class="screenshot-caption">Fig. 21 — Configuration de la réplication (CHANGE MASTER TO) sur le Slave</p>
 
-      <div class="screenshot-placeholder">[ Capture — replication_active ]</div>
+      <img class="screenshot" src="images/CAPTURE%20HD%262/replication_active.png" alt="SHOW SLAVE STATUS — Slave_IO_Running: Yes / Slave_SQL_Running: Yes">
       <p class="screenshot-caption">Fig. 22 — SHOW SLAVE STATUS — Slave_IO_Running: Yes / Slave_SQL_Running: Yes</p>
 
       <div class="screenshot-placeholder">[ Capture — test_replication ]</div>
